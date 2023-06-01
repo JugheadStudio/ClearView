@@ -1,0 +1,29 @@
+body {
+	min-height: 100vh;
+	min-height: -webkit-fill-available;
+}
+
+html {
+	height: -webkit-fill-available;
+}
+
+a {
+	color: #fff !important;
+	text-decoration: none;
+}
+
+/* -------------------------------- */
+/* ---------- Sidebar ------------- */
+
+.sidebar-wrapper {
+	height: 100vh;
+	overflow: auto;
+}
+
+.sidebar-container {
+	width: 100%;
+}
+
+.nav-link:hover {
+	cursor: pointer;
+}
