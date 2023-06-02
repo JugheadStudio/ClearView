@@ -18,34 +18,41 @@ $(document).ready(function() {
 
 	// Handle save changes button click
 	$(document).on('click', '.save-changes', function() {
-			var entryId = $(this).data('entry-id');
-			var name = $('#name' + entryId).val();
-			var surname = $('#surname' + entryId).val();
-
-			// Send AJAX request to update patient data
-			$.ajax({
-					url: 'updatePatients.php',
-					method: 'POST',
-					data: {
-							id: entryId,
-							name: name,
-							surname: surname
-					},
-					success: function(response) {
-							console.log(response);
-							// Update the table row with the new data
-							$('#row-' + entryId + ' td:nth-child(3)').text(name);
-							$('#row-' + entryId + ' td:nth-child(4)').text(surname);
-
-							// Close the modal
-							$('#viewEntry' + entryId).modal('hide');
-					},
-					error: function(xhr, status, error) {
-							console.log(xhr.responseText);
-							// Handle error case here
-					}
-			});
+		var entryId = $(this).data('entry-id');
+		var name = $('#name' + entryId).val();
+		var surname = $('#surname' + entryId).val();
+		var profilePicture = $('#profilePicture' + entryId).val();
+	
+		// Send AJAX request to update patient data
+		$.ajax({
+			url: 'updatePatients.php',
+			method: 'POST',
+			data: {
+				id: entryId,
+				name: name,
+				surname: surname,
+				profilePicture: profilePicture
+			},
+			success: function(response) {
+				console.log(response);
+				// Update the table row with the new data
+				$('#row-' + entryId + ' td:nth-child(3)').text(name);
+				$('#row-' + entryId + ' td:nth-child(4)').text(surname);
+				
+				// Update the profile picture dynamically
+				var imgElement = $('#row-' + entryId + ' td:first-child img');
+				imgElement.attr('src', profilePicture);
+		
+				// Close the modal
+				$('#viewEntry' + entryId).modal('hide');
+		},		
+			error: function(xhr, status, error) {
+				console.log(xhr.responseText);
+				// Handle error case here
+			}
+		});
 	});
+	
 });
 
 function loadContent(page) {
