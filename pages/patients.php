@@ -162,7 +162,7 @@ include '../db.php';
 				<button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
 			</div>
 			<div class='modal-body'>
-				<form id='addPatientForm' action='createPatients.php' method='POST'>
+				<form id='addPatientForm' action='createPatients.php' method='POST' enctype="multipart/form-data">
 					<div class='row mb-3'>
 						<div class='col-md-6'>
 							<label for='id' class='form-label'>ID</label>
