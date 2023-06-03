@@ -51,13 +51,6 @@ $(document).ready(function() {
 				allergy: allergy,
 				emergencyContactName: emergencyContactName,
 				emergencyContactNumber: emergencyContactNumber
-			},
-			success: function(response) {
-				alert(response); // Display the response message
-				location.reload(); // Refresh the page to update the table
-			},
-			error: function(xhr, status, error) {
-				console.log(xhr.responseText);
 			}
 		});
 	});

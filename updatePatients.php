@@ -1,10 +1,13 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 include 'db.php';
 
 $id = $_POST['id'];
+$profilePicture = $_POST['profilePicture'];
 $name = $_POST['name'];
 $surname = $_POST['surname'];
-$profilePicture = $_POST['profilePicture'];
 $dateOfBirth = $_POST['dateOfBirth'];
 $gender = $_POST['gender'];
 $phoneNumber = $_POST['phoneNumber'];
@@ -17,35 +20,39 @@ $emergencyContactName = $_POST['emergencyContactName'];
 $emergencyContactNumber = $_POST['emergencyContactNumber'];
 
 // Prepare the SQL update statement
-$sql = "UPDATE patients SET profilePicture=?, name=?, surname=?, dateOfBirth=?, gender=?, phoneNumber=?, email=?, medicalAid=?, medicalAidNumber=?, bloodType=?, allergy=?, emergencyContactName=?, emergencyContactNumber=? WHERE id=?";
+$sql = "UPDATE patients SET name=?, surname=?, dateOfBirth=?, gender=?, phoneNumber=?, email=?, medicalAid=?, medicalAidNumber=?, bloodType=?, allergy=?, emergencyContactName=?, emergencyContactNumber=?, profilePicture=? WHERE id=?";
 
 // Prepare and bind the parameters
 $stmt = $conn->prepare($sql);
 $stmt->bind_param(
-  "sssssssssssssi",
-  $profilePicture,
-  $name,
-  $surname,
-  $dateOfBirth,
-  $gender,
-  $phoneNumber,
-  $email,
-  $medicalAid,
-  $medicalAidNumber,
-  $bloodType,
-  $allergy,
-  $emergencyContactName,
-  $emergencyContactNumber,
-  $id
+    "sssssssssssssi",
+    $name,
+    $surname,
+    $dateOfBirth,
+    $gender,
+    $phoneNumber,
+    $email,
+    $medicalAid,
+    $medicalAidNumber,
+    $bloodType,
+    $allergy,
+    $emergencyContactName,
+    $emergencyContactNumber,
+    $profilePicture,
+    $id
 );
 
 // Execute the update statement
 if ($stmt->execute()) {
-  echo 'Data updated successfully';
+    echo 'Data updated successfully';
 } else {
-  echo 'Error updating data: ' . $stmt->error;
+    echo 'Error updating data: ' . $stmt->error;
 }
 
 $stmt->close();
 $conn->close();
+
+// Redirect to index.php
+header('Location: index.php');
+exit();
 ?>

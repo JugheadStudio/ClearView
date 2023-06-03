@@ -53,7 +53,7 @@ while ($row = $results->fetch_assoc()) {
 					<button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
 				</div>
 				<div class='modal-body'>
-					<form>
+					<form action="updatePatients.php" method="POST" enctype="multipart/form-data">
 						<div class='mb-3'>
 							<label for='profilePicture<?php echo $row['id']; ?>' class='form-label'>Profile Picture</label>
 							<input type='text' class='form-control' id='profilePicture<?php echo $row['id']; ?>' value='<?php echo $row['profilePicture']; ?>'>
@@ -61,19 +61,19 @@ while ($row = $results->fetch_assoc()) {
 						<div class='row mb-3'>
 							<div class="col-6">
 								<label for='name<?php echo $row['id']; ?>' class='form-label'>Name</label>
-								<input type='text' class='form-control' id='name<?php echo $row['id']; ?>' value='<?php echo $row['name']; ?>'>
+								<input type='text' class='form-control' id='name<?php echo $row['id']; ?>' name='name' value='<?php echo $row['name']; ?>'>
 							</div>
 
 							<div class="col-6">
 								<label for='surname<?php echo $row['id']; ?>' class='form-label'>Surname</label>
-								<input type='text' class='form-control' id='surname<?php echo $row['id']; ?>' value='<?php echo $row['surname']; ?>'>
+								<input type='text' class='form-control' id='surname<?php echo $row['id']; ?>' name='surname' value='<?php echo $row['surname']; ?>'>
 							</div>
 						</div>
 
 						<div class='row mb-3'>
 							<div class="col-6">
 								<label for='dateOfBirth<?php echo $row['id']; ?>' class='form-label'>Date of Birth</label>
-								<input type='date' class='form-control' id='dateOfBirth<?php echo $row['id']; ?>' value='<?php echo $row['dateOfBirth']; ?>'>
+								<input type='date' class='form-control' id='dateOfBirth<?php echo $row['id']; ?>' name='dateOfBirth' value='<?php echo $row['dateOfBirth']; ?>'>
 							</div>
 
 							<div class="col-6">
@@ -90,24 +90,24 @@ while ($row = $results->fetch_assoc()) {
 						<div class='row mb-3'>
 							<div class="col-6">
 								<label for='phoneNumber<?php echo $row['id']; ?>' class='form-label'>Contact Number</label>
-								<input type='text' class='form-control' id='phoneNumber<?php echo $row['id']; ?>' value='<?php echo $row['phoneNumber']; ?>'>
+								<input type='text' class='form-control' id='phoneNumber<?php echo $row['id']; ?>' name='phoneNumber' value='<?php echo $row['phoneNumber']; ?>'>
 							</div>
 
 							<div class="col-6">
 								<label for='email<?php echo $row['id']; ?>' class='form-label'>Email</label>
-								<input type='email' class='form-control' id='email<?php echo $row['id']; ?>' value='<?php echo $row['email']; ?>'>
+								<input type='email' class='form-control' id='email<?php echo $row['id']; ?>' name='email' value='<?php echo $row['email']; ?>'>
 							</div>
 						</div>
 
 						<div class='row mb-3'>
 							<div class="col-6">
 								<label for='medicalAid<?php echo $row['id']; ?>' class='form-label'>Medical Aid</label>
-								<input type='text' class='form-control' id='medicalAid<?php echo $row['id']; ?>' value='<?php echo $row['medicalAid']; ?>'>
+								<input type='text' class='form-control' id='medicalAid<?php echo $row['id']; ?>' name='medicalAid' value='<?php echo $row['medicalAid']; ?>'>
 							</div>
 
 							<div class="col-6">
 								<label for='medicalAidNumber<?php echo $row['id']; ?>' class='form-label'>Medical Aid Number</label>
-								<input type='text' class='form-control' id='medicalAidNumber<?php echo $row['id']; ?>' value='<?php echo $row['medicalAidNumber']; ?>'>
+								<input type='text' class='form-control' id='medicalAidNumber<?php echo $row['id']; ?>' name='medicalAidNumber' value='<?php echo $row['medicalAidNumber']; ?>'>
 							</div>
 						</div>
 
@@ -123,28 +123,27 @@ while ($row = $results->fetch_assoc()) {
 								</select>
 							</div>
 
-
 							<div class="col-6">
 								<label for='allergy<?php echo $row['id']; ?>' class='form-label'>Allergies</label>
-								<input type='text' class='form-control' id='allergy<?php echo $row['id']; ?>' value='<?php echo $row['allergy']; ?>'>
+								<input type='text' class='form-control' id='allergy<?php echo $row['id']; ?>' name='allergy' value='<?php echo $row['allergy']; ?>'>
 							</div>
 						</div>
 
 						<div class='row mb-3'>
 							<div class="col-6">
 								<label for='emergencyContactName<?php echo $row['id']; ?>' class='form-label'>Emergency Contact</label>
-								<input type='text' class='form-control' id='emergencyContactName<?php echo $row['id']; ?>' value='<?php echo $row['emergencyContactName']; ?>'>
+								<input type='text' class='form-control' id='emergencyContactName<?php echo $row['id']; ?>' name='emergencyContactName' value='<?php echo $row['emergencyContactName']; ?>'>
 							</div>
 
 							<div class="col-6">
 								<label for='emergencyContactNumber<?php echo $row['id']; ?>' class='form-label'>Emergency Contact Number</label>
-								<input type='text' class='form-control' id='emergencyContactNumber<?php echo $row['id']; ?>' value='<?php echo $row['emergencyContactNumber']; ?>'>
+								<input type='text' class='form-control' id='emergencyContactNumber<?php echo $row['id']; ?>' name='emergencyContactNumber' value='<?php echo $row['emergencyContactNumber']; ?>'>
 							</div>
 						</div>
 
 						<div class='mb-3'>
 						</div>
-						<button type='button' class='btn btn-primary save-changes' data-entry-id='<?php echo $row['id']; ?>'>Save changes</button>
+						<button type='submit' class='btn btn-primary save-changes' data-entry-id='<?php echo $row['id']; ?>'>Save changes</button>
 					</form>
 				</div>
 
@@ -157,8 +156,6 @@ while ($row = $results->fetch_assoc()) {
 <?php
 }
 ?>
-
-
 
 <!-- Add Patient Modal -->
 <div class='modal fade' id='addPatientModal' tabindex='-1' aria-labelledby='addPatientModalLabel' aria-hidden='true'>
