@@ -27,7 +27,7 @@ $filename = uniqid() . '.' . $fileExtension;
 // Set the target file path
 $targetFile = 'uploads/' . $filename;
 
-$sql = "INSERT INTO `patients`(`id`, `profilePicture`, `name`, `surname`, `dateOfBirth`, `gender`, `phoneNumber`, `email`, `address`, `medicalAid`, `medicalAidNumber`, `bloodType`, `allergy`, `EmergencyContactName`, `EmergencyContactNumber`) VALUES ('$id', '$targetFile', '$name', '$surname', '$dateOfBirth', '$gender', '$phoneNumber', '$email', '$address', '$medicalAid', '$medicalAidNumber', '$bloodType', '$allergy', '$emergencyContactName', '$emergencyContactNumber')";
+$sql = "INSERT INTO `patients`(`profilePicture`, `name`, `surname`, `dateOfBirth`, `gender`, `phoneNumber`, `email`, `address`, `medicalAid`, `medicalAidNumber`, `bloodType`, `allergy`, `EmergencyContactName`, `EmergencyContactNumber`) VALUES ('$targetFile', '$name', '$surname', '$dateOfBirth', '$gender', '$phoneNumber', '$email', '$address', '$medicalAid', '$medicalAidNumber', '$bloodType', '$allergy', '$emergencyContactName', '$emergencyContactNumber')";
 
 if ($conn->query($sql) === TRUE) {
     echo 'Data inserted successfully';

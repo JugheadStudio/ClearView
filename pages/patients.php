@@ -115,7 +115,7 @@ while ($row = $results->fetch_assoc()) {
 							<div class="col-6">
 								<label for="bloodType<?php echo $row['id']; ?>" class="form-label">Blood Type</label>
 								<select class="form-select" id="bloodType<?php echo $row['id']; ?>" name="bloodType">
-									<option value="" <?php if ($row['bloodType'] == '') echo 'selected'; ?>>Not Sure</option>
+									<option value="Not Sure" <?php if ($row['bloodType'] == 'Not Sure') echo 'selected'; ?>>Not Sure</option>
 									<option value="A" <?php if ($row['bloodType'] == 'A') echo 'selected'; ?>>A</option>
 									<option value="B" <?php if ($row['bloodType'] == 'B') echo 'selected'; ?>>B</option>
 									<option value="AB" <?php if ($row['bloodType'] == 'AB') echo 'selected'; ?>>AB</option>
@@ -168,11 +168,7 @@ while ($row = $results->fetch_assoc()) {
 			<div class='modal-body'>
 				<form id='addPatientForm' action='createPatients.php' method='POST' enctype="multipart/form-data">
 					<div class='row mb-3'>
-						<div class='col-md-6'>
-							<label for='id' class='form-label'>ID</label>
-							<input type='text' class='form-control' id='id' name='id' required>
-						</div>
-						<div class='col-md-6'>
+						<div class='col'>
 							<label for='profilePicture' class='form-label'>Profile Picture</label>
 							<input type='file' class='form-control' id='profilePicture' name='profilePicture' accept='image/*' required>
 						</div>
@@ -229,7 +225,7 @@ while ($row = $results->fetch_assoc()) {
 						<div class='col-md-6'>
 							<label for='bloodType' class='form-label'>Blood Type</label>
 							<select class='form-select' id='bloodType' name='bloodType' required>
-								<option value='' selected>Not Sure</option>
+								<option value='Not Sure' selected>Not Sure</option>
 								<option value='A'>A</option>
 								<option value='B'>B</option>
 								<option value='AB'>AB</option>
