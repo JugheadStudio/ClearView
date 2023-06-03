@@ -9,7 +9,6 @@ $dateOfBirth = $_POST['dateOfBirth'];
 $gender = $_POST['gender'];
 $phoneNumber = $_POST['phoneNumber'];
 $email = $_POST['email'];
-$address = $_POST['address'];
 $medicalAid = $_POST['medicalAid'];
 $medicalAidNumber = $_POST['medicalAidNumber'];
 $bloodType = $_POST['bloodType'];
@@ -17,13 +16,36 @@ $allergy = $_POST['allergy'];
 $emergencyContactName = $_POST['emergencyContactName'];
 $emergencyContactNumber = $_POST['emergencyContactNumber'];
 
-$sql = "UPDATE `patients` SET `id`='$id', `profilePicture`='$profilePicture', `name`='$name', `surname`='$surname', `dateOfBirth`='$dateOfBirth', `gender`='$gender', `phoneNumber`='$phoneNumber', `email`='$email', `address`='$address', `medicalAid`='$medicalAid', `medicalAidNumber`='$medicalAidNumber', `bloodType`='$bloodType', `allergy`='$allergy', `emergencyContactName`='$emergencyContactName', `emergencyContactNumber`='$emergencyContactNumber' WHERE `id`='$id'";
+// Prepare the SQL update statement
+$sql = "UPDATE patients SET profilePicture=?, name=?, surname=?, dateOfBirth=?, gender=?, phoneNumber=?, email=?, medicalAid=?, medicalAidNumber=?, bloodType=?, allergy=?, emergencyContactName=?, emergencyContactNumber=? WHERE id=?";
 
-if ($conn->query($sql) === TRUE) {
-    echo 'Data updated successfully';
+// Prepare and bind the parameters
+$stmt = $conn->prepare($sql);
+$stmt->bind_param(
+  "sssssssssssssi",
+  $profilePicture,
+  $name,
+  $surname,
+  $dateOfBirth,
+  $gender,
+  $phoneNumber,
+  $email,
+  $medicalAid,
+  $medicalAidNumber,
+  $bloodType,
+  $allergy,
+  $emergencyContactName,
+  $emergencyContactNumber,
+  $id
+);
+
+// Execute the update statement
+if ($stmt->execute()) {
+  echo 'Data updated successfully';
 } else {
-    echo 'Error updating data: ' . $conn->error;
+  echo 'Error updating data: ' . $stmt->error;
 }
 
+$stmt->close();
 $conn->close();
 ?>

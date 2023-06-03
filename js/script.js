@@ -11,48 +11,56 @@ $(document).ready(function() {
 
 	// Handle sidebar navigation
 	$('.nav-link').click(function(e) {
-			e.preventDefault();
-			var page = $(this).attr('id').replace('Link', '');
-			loadContent(page);
+		e.preventDefault();
+		var page = $(this).attr('id').replace('Link', '');
+		loadContent(page);
 	});
-
-	// Handle save changes button click
+	
 	$(document).on('click', '.save-changes', function() {
 		var entryId = $(this).data('entry-id');
+		var profilePicture = $('#profilePicture' + entryId).val();
 		var name = $('#name' + entryId).val();
 		var surname = $('#surname' + entryId).val();
-		var profilePicture = $('#profilePicture' + entryId).val();
-	
-		// Send AJAX request to update patient data
+		var dateOfBirth = $('#dateOfBirth' + entryId).val();
+		var gender = $('#gender' + entryId).val();
+		var phoneNumber = $('#phoneNumber' + entryId).val();
+		var email = $('#email' + entryId).val();
+		var medicalAid = $('#medicalAid' + entryId).val();
+		var medicalAidNumber = $('#medicalAidNumber' + entryId).val();
+		var bloodType = $('#bloodType' + entryId).val();
+		var allergy = $('#allergy' + entryId).val();
+		var emergencyContactName = $('#emergencyContactName' + entryId).val();
+		var emergencyContactNumber = $('#emergencyContactNumber' + entryId).val();
+
+		// Send an AJAX request to updatePatients.php
 		$.ajax({
 			url: 'updatePatients.php',
 			method: 'POST',
 			data: {
 				id: entryId,
+				profilePicture: profilePicture,
 				name: name,
 				surname: surname,
-				profilePicture: profilePicture
+				dateOfBirth: dateOfBirth,
+				gender: gender,
+				phoneNumber: phoneNumber,
+				email: email,
+				medicalAid: medicalAid,
+				medicalAidNumber: medicalAidNumber,
+				bloodType: bloodType,
+				allergy: allergy,
+				emergencyContactName: emergencyContactName,
+				emergencyContactNumber: emergencyContactNumber
 			},
 			success: function(response) {
-				console.log(response);
-				// Update the table row with the new data
-				$('#row-' + entryId + ' td:nth-child(3)').text(name);
-				$('#row-' + entryId + ' td:nth-child(4)').text(surname);
-				
-				// Update the profile picture dynamically
-				var imgElement = $('#row-' + entryId + ' td:first-child img');
-				imgElement.attr('src', profilePicture);
-		
-				// Close the modal
-				$('#viewEntry' + entryId).modal('hide');
-		},		
+				alert(response); // Display the response message
+				location.reload(); // Refresh the page to update the table
+			},
 			error: function(xhr, status, error) {
 				console.log(xhr.responseText);
-				// Handle error case here
 			}
 		});
 	});
-	
 });
 
 function loadContent(page) {

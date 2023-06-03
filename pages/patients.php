@@ -30,128 +30,135 @@ include '../db.php';
 				<td><?php echo $row['name']; ?></td>
 				<td><?php echo $row['surname']; ?></td>
 				<td>
-					<button class='btn btn-primary save-changes' data-entry-id='<?php echo $row['id']; ?>' data-bs-toggle='modal' data-bs-target='#viewEntry<?php echo $row['id']; ?>'>View</button>
+					<button class='btn btn-primary' data-entry-id='<?php echo $row['id']; ?>' data-bs-toggle='modal' data-bs-target='#viewEntry<?php echo $row['id']; ?>'>View</button>
 				</td>
 			</tr>
-			<div class='modal fade' id='viewEntry<?php echo $row['id']; ?>' tabindex='-1' aria-labelledby='viewEntryLabel' aria-hidden='true'>
-				<div class='modal-dialog'>
-					<div class='modal-content'>
-						<div class='modal-header'>
-							<h5 class='modal-title' id='viewEntryLabel'>Edit Entry</h5>
-							<button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
-						</div>
-						<div class='modal-body'>
-							<form>
-								<div class='mb-3'>
-									<label for='profilePicture<?php echo $row['id']; ?>' class='form-label'>Profile Picture</label>
-									<input type='text' class='form-control' id='profilePicture<?php echo $row['id']; ?>' value='<?php echo $row['profilePicture']; ?>'>
-								</div>
-								<div class='row mb-3'>
-									<div class="col-6">
-										<label for='name<?php echo $row['id']; ?>' class='form-label'>Name</label>
-										<input type='text' class='form-control' id='name<?php echo $row['id']; ?>' value='<?php echo $row['name']; ?>'>
-									</div>
-
-									<div class="col-6">
-										<label for='surname<?php echo $row['id']; ?>' class='form-label'>Surname</label>
-										<input type='text' class='form-control' id='surname<?php echo $row['id']; ?>' value='<?php echo $row['surname']; ?>'>
-									</div>
-								</div>
-
-								<div class='row mb-3'>
-									<div class="col-6">
-										<label for='dateOfBirth<?php echo $row['id']; ?>' class='form-label'>Date of Birth</label>
-										<input type='date' class='form-control' id='dateOfBirth<?php echo $row['id']; ?>' value='<?php echo $row['dateOfBirth']; ?>'>
-									</div>
-
-									<div class="col-6">
-										<label for="gender<?php echo $row['id']; ?>" class="form-label">Gender</label>
-										<select class="form-select" id="gender<?php echo $row['id']; ?>" name="gender">
-											<option value="Male" <?php if ($row['gender'] == 'Male') echo ' selected'; ?>>Male</option>
-											<option value="Female" <?php if ($row['gender'] == 'Female') echo ' selected'; ?>>Female</option>
-											<option value="Other" <?php if ($row['gender'] == 'Other') echo ' selected'; ?>>Other</option>
-										</select>
-									</div>
-
-								</div>
-
-								<div class='row mb-3'>
-									<div class="col-6">
-										<label for='phoneNumber<?php echo $row['id']; ?>' class='form-label'>Contact Number</label>
-										<input type='text' class='form-control' id='phoneNumber<?php echo $row['id']; ?>' value='<?php echo $row['phoneNumber']; ?>'>
-									</div>
-
-									<div class="col-6">
-										<label for='email<?php echo $row['id']; ?>' class='form-label'>Email</label>
-										<input type='email' class='form-control' id='email<?php echo $row['id']; ?>' value='<?php echo $row['email']; ?>'>
-									</div>
-								</div>
-
-								<div class='row mb-3'>
-									<div class="col-6">
-										<label for='medicalAid<?php echo $row['id']; ?>' class='form-label'>Medical Aid</label>
-										<input type='text' class='form-control' id='medicalAid<?php echo $row['id']; ?>' value='<?php echo $row['medicalAid']; ?>'>
-									</div>
-
-									<div class="col-6">
-										<label for='medicalAidNumber<?php echo $row['id']; ?>' class='form-label'>Medical Aid Number</label>
-										<input type='text' class='form-control' id='medicalAidNumber<?php echo $row['id']; ?>' value='<?php echo $row['medicalAidNumber']; ?>'>
-									</div>
-								</div>
-
-								<div class='row mb-3'>
-									<div class="col-6">
-										<label for="bloodType<?php echo $row['id']; ?>" class="form-label">Blood Type</label>
-										<select class="form-select" id="bloodType<?php echo $row['id']; ?>" name="bloodType">
-											<option value="" <?php if ($row['bloodType'] == '') echo 'selected'; ?>>Not Sure</option>
-											<option value="A" <?php if ($row['bloodType'] == 'A') echo 'selected'; ?>>A</option>
-											<option value="B" <?php if ($row['bloodType'] == 'B') echo 'selected'; ?>>B</option>
-											<option value="AB" <?php if ($row['bloodType'] == 'AB') echo 'selected'; ?>>AB</option>
-											<option value="O" <?php if ($row['bloodType'] == 'O') echo 'selected'; ?>>O</option>
-										</select>
-									</div>
-
-
-									<div class="col-6">
-										<label for='allergy<?php echo $row['id']; ?>' class='form-label'>Allergies</label>
-										<input type='text' class='form-control' id='allergy<?php echo $row['id']; ?>' value='<?php echo $row['allergy']; ?>'>
-									</div>
-								</div>
-
-								<div class='row mb-3'>
-									<div class="col-6">
-										<label for='emergencyContactName<?php echo $row['id']; ?>' class='form-label'>Emergency Contact</label>
-										<input type='text' class='form-control' id='emergencyContactName<?php echo $row['id']; ?>' value='<?php echo $row['emergencyContactName']; ?>'>
-									</div>
-
-									<div class="col-6">
-										<label for='emergencyContactNumber<?php echo $row['id']; ?>' class='form-label'>Emergency Contact Number</label>
-										<input type='text' class='form-control' id='emergencyContactNumber<?php echo $row['id']; ?>' value='<?php echo $row['emergencyContactNumber']; ?>'>
-									</div>
-								</div>
-
-								<div class='mb-3'>
-								</div>
-								<button type='button' class='btn btn-primary save-changes' data-entry-id='<?php echo $row['id']; ?>'>Save changes</button>
-							</form>
-						</div>
-
-						<div class='modal-footer'>
-							<button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Close</button>
-						</div>
-					</div>
-				</div>
-			</div>
 	<?php
 		}
 	} else {
 		echo "No records found";
 	}
-
-	// Close the database connection
-	$conn->close();
 	?>
 </table>
+
+<?php
+$results->data_seek(0); // Reset the result pointer
+while ($row = $results->fetch_assoc()) {
+?>
+	<div class='modal fade' id='viewEntry<?php echo $row['id']; ?>' tabindex='-1' aria-labelledby='viewEntryLabel' aria-hidden='true'>
+		<div class='modal-dialog'>
+			<div class='modal-content'>
+				<div class='modal-header'>
+					<h5 class='modal-title' id='viewEntryLabel'>Edit Entry</h5>
+					<button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
+				</div>
+				<div class='modal-body'>
+					<form>
+						<div class='mb-3'>
+							<label for='profilePicture<?php echo $row['id']; ?>' class='form-label'>Profile Picture</label>
+							<input type='text' class='form-control' id='profilePicture<?php echo $row['id']; ?>' value='<?php echo $row['profilePicture']; ?>'>
+						</div>
+						<div class='row mb-3'>
+							<div class="col-6">
+								<label for='name<?php echo $row['id']; ?>' class='form-label'>Name</label>
+								<input type='text' class='form-control' id='name<?php echo $row['id']; ?>' value='<?php echo $row['name']; ?>'>
+							</div>
+
+							<div class="col-6">
+								<label for='surname<?php echo $row['id']; ?>' class='form-label'>Surname</label>
+								<input type='text' class='form-control' id='surname<?php echo $row['id']; ?>' value='<?php echo $row['surname']; ?>'>
+							</div>
+						</div>
+
+						<div class='row mb-3'>
+							<div class="col-6">
+								<label for='dateOfBirth<?php echo $row['id']; ?>' class='form-label'>Date of Birth</label>
+								<input type='date' class='form-control' id='dateOfBirth<?php echo $row['id']; ?>' value='<?php echo $row['dateOfBirth']; ?>'>
+							</div>
+
+							<div class="col-6">
+								<label for="gender<?php echo $row['id']; ?>" class="form-label">Gender</label>
+								<select class="form-select" id="gender<?php echo $row['id']; ?>" name="gender">
+									<option value="Male" <?php if ($row['gender'] == 'Male') echo ' selected'; ?>>Male</option>
+									<option value="Female" <?php if ($row['gender'] == 'Female') echo ' selected'; ?>>Female</option>
+									<option value="Other" <?php if ($row['gender'] == 'Other') echo ' selected'; ?>>Other</option>
+								</select>
+							</div>
+
+						</div>
+
+						<div class='row mb-3'>
+							<div class="col-6">
+								<label for='phoneNumber<?php echo $row['id']; ?>' class='form-label'>Contact Number</label>
+								<input type='text' class='form-control' id='phoneNumber<?php echo $row['id']; ?>' value='<?php echo $row['phoneNumber']; ?>'>
+							</div>
+
+							<div class="col-6">
+								<label for='email<?php echo $row['id']; ?>' class='form-label'>Email</label>
+								<input type='email' class='form-control' id='email<?php echo $row['id']; ?>' value='<?php echo $row['email']; ?>'>
+							</div>
+						</div>
+
+						<div class='row mb-3'>
+							<div class="col-6">
+								<label for='medicalAid<?php echo $row['id']; ?>' class='form-label'>Medical Aid</label>
+								<input type='text' class='form-control' id='medicalAid<?php echo $row['id']; ?>' value='<?php echo $row['medicalAid']; ?>'>
+							</div>
+
+							<div class="col-6">
+								<label for='medicalAidNumber<?php echo $row['id']; ?>' class='form-label'>Medical Aid Number</label>
+								<input type='text' class='form-control' id='medicalAidNumber<?php echo $row['id']; ?>' value='<?php echo $row['medicalAidNumber']; ?>'>
+							</div>
+						</div>
+
+						<div class='row mb-3'>
+							<div class="col-6">
+								<label for="bloodType<?php echo $row['id']; ?>" class="form-label">Blood Type</label>
+								<select class="form-select" id="bloodType<?php echo $row['id']; ?>" name="bloodType">
+									<option value="" <?php if ($row['bloodType'] == '') echo 'selected'; ?>>Not Sure</option>
+									<option value="A" <?php if ($row['bloodType'] == 'A') echo 'selected'; ?>>A</option>
+									<option value="B" <?php if ($row['bloodType'] == 'B') echo 'selected'; ?>>B</option>
+									<option value="AB" <?php if ($row['bloodType'] == 'AB') echo 'selected'; ?>>AB</option>
+									<option value="O" <?php if ($row['bloodType'] == 'O') echo 'selected'; ?>>O</option>
+								</select>
+							</div>
+
+
+							<div class="col-6">
+								<label for='allergy<?php echo $row['id']; ?>' class='form-label'>Allergies</label>
+								<input type='text' class='form-control' id='allergy<?php echo $row['id']; ?>' value='<?php echo $row['allergy']; ?>'>
+							</div>
+						</div>
+
+						<div class='row mb-3'>
+							<div class="col-6">
+								<label for='emergencyContactName<?php echo $row['id']; ?>' class='form-label'>Emergency Contact</label>
+								<input type='text' class='form-control' id='emergencyContactName<?php echo $row['id']; ?>' value='<?php echo $row['emergencyContactName']; ?>'>
+							</div>
+
+							<div class="col-6">
+								<label for='emergencyContactNumber<?php echo $row['id']; ?>' class='form-label'>Emergency Contact Number</label>
+								<input type='text' class='form-control' id='emergencyContactNumber<?php echo $row['id']; ?>' value='<?php echo $row['emergencyContactNumber']; ?>'>
+							</div>
+						</div>
+
+						<div class='mb-3'>
+						</div>
+						<button type='button' class='btn btn-primary save-changes' data-entry-id='<?php echo $row['id']; ?>'>Save changes</button>
+					</form>
+				</div>
+
+				<div class='modal-footer'>
+					<button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+<?php
+}
+?>
+
+
 
 <!-- Add Patient Modal -->
 <div class='modal fade' id='addPatientModal' tabindex='-1' aria-labelledby='addPatientModalLabel' aria-hidden='true'>
