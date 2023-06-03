@@ -3,10 +3,10 @@ $(document).ready(function() {
 	var activePage = sessionStorage.getItem('activePage');
 
 	if (activePage) {
-			loadContent(activePage);
+		loadContent(activePage);
 	} else {
-			// Load initial content
-			loadContent('patients');
+		// Load initial content
+		loadContent('patients');
 	}
 
 	// Handle sidebar navigation
@@ -15,9 +15,10 @@ $(document).ready(function() {
 		var page = $(this).attr('id').replace('Link', '');
 		loadContent(page);
 	});
-	
+
 	$(document).on('click', '.save-changes', function() {
 		var entryId = $(this).data('entry-id');
+		var page = sessionStorage.getItem('activePage');
 		var profilePicture = $('#profilePicture' + entryId).val();
 		var name = $('#name' + entryId).val();
 		var surname = $('#surname' + entryId).val();
@@ -32,9 +33,17 @@ $(document).ready(function() {
 		var emergencyContactName = $('#emergencyContactName' + entryId).val();
 		var emergencyContactNumber = $('#emergencyContactNumber' + entryId).val();
 
-		// Send an AJAX request to updatePatients.php
+		// Determine the update PHP file based on the active page
+		var updateUrl = '';
+		if (page === 'patients') {
+			updateUrl = 'updatePatients.php';
+		} else if (page === 'doctors') {
+			updateUrl = 'updateDoctors.php';
+		}
+
+		// Send an AJAX request to the respective update file
 		$.ajax({
-			url: 'updatePatients.php',
+			url: updateUrl,
 			method: 'POST',
 			data: {
 				id: entryId,
@@ -65,9 +74,9 @@ function loadContent(page) {
 
 	var xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
-			if (this.readyState == 4 && this.status == 200) {
-					document.getElementById('content').innerHTML = this.responseText;
-			}
+		if (this.readyState == 4 && this.status == 200) {
+			document.getElementById('content').innerHTML = this.responseText;
+		}
 	};
 	xhttp.open('GET', 'pages/' + page + '.php', true);
 	xhttp.send();
@@ -75,7 +84,7 @@ function loadContent(page) {
 	// Clear the active class from all nav links
 	var navLinks = document.querySelectorAll('.nav-link');
 	navLinks.forEach(function(link) {
-			link.classList.remove('active');
+		link.classList.remove('active');
 	});
 
 	// Add the active class to the current nav link

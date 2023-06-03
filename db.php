@@ -1,5 +1,3 @@
-
-
 <?php
 $host = "localhost";  // Hostname of the MySQL server
 $username = "root";  // Username to access the database
@@ -13,5 +11,4 @@ $conn = new mysqli($host, $username, $password, $database);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-
 ?>

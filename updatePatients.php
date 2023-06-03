@@ -25,28 +25,28 @@ $sql = "UPDATE patients SET name=?, surname=?, dateOfBirth=?, gender=?, phoneNum
 // Prepare and bind the parameters
 $stmt = $conn->prepare($sql);
 $stmt->bind_param(
-    "sssssssssssssi",
-    $name,
-    $surname,
-    $dateOfBirth,
-    $gender,
-    $phoneNumber,
-    $email,
-    $medicalAid,
-    $medicalAidNumber,
-    $bloodType,
-    $allergy,
-    $emergencyContactName,
-    $emergencyContactNumber,
-    $profilePicture,
-    $id
+	"sssssssssssssi",
+	$name,
+	$surname,
+	$dateOfBirth,
+	$gender,
+	$phoneNumber,
+	$email,
+	$medicalAid,
+	$medicalAidNumber,
+	$bloodType,
+	$allergy,
+	$emergencyContactName,
+	$emergencyContactNumber,
+	$profilePicture,
+	$id
 );
 
 // Execute the update statement
 if ($stmt->execute()) {
-    echo 'Data updated successfully';
+	echo 'Data updated successfully';
 } else {
-    echo 'Error updating data: ' . $stmt->error;
+	echo 'Error updating data: ' . $stmt->error;
 }
 
 $stmt->close();
@@ -56,3 +56,4 @@ $conn->close();
 header('Location: index.php');
 exit();
 ?>
+<!--  -->
