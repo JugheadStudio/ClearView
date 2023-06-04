@@ -28,11 +28,11 @@ a {
 	cursor: pointer;
 }
 
-.modal-dialog {
-	max-width: 900px !important;
+/* .modal-dialog {
+	max-width: 900px ;
 	margin-right: auto;
 	margin-left: auto;
-}
+} */
 
 
 /* -------------------------------- */

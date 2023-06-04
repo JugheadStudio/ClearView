@@ -5,7 +5,11 @@ ini_set('display_errors', 1);
 include '../db.php';
 ?>
 
-<button class='btn btn-primary save-changes' data-bs-toggle='modal' data-bs-target='#addPatientModal'>Add Patient</button>
+<div class="row mt-5 mb-3">
+	<div class="col text-end">
+		<button class='btn btn-primary save-changes' data-bs-toggle='modal' data-bs-target='#addPatientModal'>Add Patient</button>
+	</div>
+</div>
 
 <table class='table'>
 	<tr>
