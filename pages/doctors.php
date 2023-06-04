@@ -46,7 +46,7 @@ $results->data_seek(0); // Reset the result pointer
 while ($row = $results->fetch_assoc()) {
 ?>
 	<div class='modal fade' id='viewEntry<?php echo $row['id']; ?>' tabindex='-1' aria-labelledby='viewEntryLabel' aria-hidden='true'>
-		<div class='modal-dialog'>
+		<div class='modal-dialog modal-lg'>
 			<div class='modal-content'>
 				<div class='modal-header'>
 					<h5 class='modal-title' id='viewEntryLabel'>Edit Entry</h5>
@@ -145,10 +145,9 @@ while ($row = $results->fetch_assoc()) {
 }
 ?>
 
-
 <!-- Add Doctor Modal -->
 <div class='modal fade' id='addPatientModal' tabindex='-1' aria-labelledby='addPatientModalLabel' aria-hidden='true'>
-	<div class='modal-dialog'>
+	<div class='modal-dialog modal-lg'>
 		<div class='modal-content'>
 			<div class='modal-header'>
 				<h5 class='modal-title' id='addPatientModalLabel'>Add Doctor</h5>
@@ -247,4 +246,3 @@ while ($row = $results->fetch_assoc()) {
 </div>
 
 <script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
-<script src='script.js'></script>

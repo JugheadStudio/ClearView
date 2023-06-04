@@ -46,37 +46,27 @@ $results->data_seek(0); // Reset the result pointer
 while ($row = $results->fetch_assoc()) {
 ?>
 	<div class='modal fade' id='viewEntry<?php echo $row['id']; ?>' tabindex='-1' aria-labelledby='viewEntryLabel' aria-hidden='true'>
-		<div class='modal-dialog'>
+		<div class='modal-dialog modal-lg'>
 			<div class='modal-content'>
-				<div class='modal-header'>
-					<h5 class='modal-title' id='viewEntryLabel'>Edit Entry</h5>
-					<button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
-				</div>
 				<div class='modal-body'>
-					<form action="updatePatients.php" method="POST" enctype="multipart/form-data">
-						<div class='mb-3'>
-							<label for='profilePicture<?php echo $row['id']; ?>' class='form-label'>Profile Picture</label>
-							<input type='text' class='form-control' id='profilePicture<?php echo $row['id']; ?>' value='<?php echo $row['profilePicture']; ?>'>
+
+					<div class='row mb-3'>
+						<div class='col text-end'>
+							<button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
 						</div>
+					</div>
+
+					<form action="updatePatients.php" method="POST" enctype="multipart/form-data">
+						
 						<div class='row mb-3'>
-							<div class="col-6">
+							<div class='col text-center'>
+								<img src='<?php echo $row['profilePicture']; ?>' alt="" width="150" height="150" class="rounded-circle me-2">
+							</div>
+
+							<div class="col">
 								<label for='name<?php echo $row['id']; ?>' class='form-label'>Name</label>
 								<input type='text' class='form-control' id='name<?php echo $row['id']; ?>' name='name' value='<?php echo $row['name']; ?>'>
-							</div>
 
-							<div class="col-6">
-								<label for='surname<?php echo $row['id']; ?>' class='form-label'>Surname</label>
-								<input type='text' class='form-control' id='surname<?php echo $row['id']; ?>' name='surname' value='<?php echo $row['surname']; ?>'>
-							</div>
-						</div>
-
-						<div class='row mb-3'>
-							<div class="col-6">
-								<label for='dateOfBirth<?php echo $row['id']; ?>' class='form-label'>Date of Birth</label>
-								<input type='date' class='form-control' id='dateOfBirth<?php echo $row['id']; ?>' name='dateOfBirth' value='<?php echo $row['dateOfBirth']; ?>'>
-							</div>
-
-							<div class="col-6">
 								<label for="gender<?php echo $row['id']; ?>" class="form-label">Gender</label>
 								<select class="form-select" id="gender<?php echo $row['id']; ?>" name="gender">
 									<option value="Male" <?php if ($row['gender'] == 'Male') echo ' selected'; ?>>Male</option>
@@ -85,17 +75,38 @@ while ($row = $results->fetch_assoc()) {
 								</select>
 							</div>
 
+							<div class="col">
+								<label for='surname<?php echo $row['id']; ?>' class='form-label'>Surname</label>
+								<input type='text' class='form-control' id='surname<?php echo $row['id']; ?>' name='surname' value='<?php echo $row['surname']; ?>'>
+
+								<label for='dateOfBirth<?php echo $row['id']; ?>' class='form-label'>Date of Birth</label>
+								<input type='date' class='form-control' id='dateOfBirth<?php echo $row['id']; ?>' name='dateOfBirth' value='<?php echo $row['dateOfBirth']; ?>'>
+							</div>
 						</div>
 
 						<div class='row mb-3'>
 							<div class="col-6">
-								<label for='phoneNumber<?php echo $row['id']; ?>' class='form-label'>Contact Number</label>
-								<input type='text' class='form-control' id='phoneNumber<?php echo $row['id']; ?>' name='phoneNumber' value='<?php echo $row['phoneNumber']; ?>'>
+								<label for='profilePicture<?php echo $row['id']; ?>' class='form-label'>Profile Picture</label>
+								<input type='text' class='form-control' id='profilePicture<?php echo $row['id']; ?>' name='profilePicture' value='<?php echo $row['profilePicture']; ?>'>
 							</div>
+						</div>
 
+						<div class='row mb-3'>
 							<div class="col-6">
 								<label for='email<?php echo $row['id']; ?>' class='form-label'>Email</label>
 								<input type='email' class='form-control' id='email<?php echo $row['id']; ?>' name='email' value='<?php echo $row['email']; ?>'>
+							</div>
+							
+							<div class="col-6">
+								<label for='phoneNumber<?php echo $row['id']; ?>' class='form-label'>Number</label>
+								<input type='text' class='form-control' id='phoneNumber<?php echo $row['id']; ?>' name='phoneNumber' value='<?php echo $row['phoneNumber']; ?>'>
+							</div>
+						</div>
+
+						<div class='row mb-3'>
+							<div class="col-6">
+								<label for='address<?php echo $row['id']; ?>' class='form-label'>Address</label>
+								<input type='text' class='form-control' id='address<?php echo $row['id']; ?>' name='address' value='<?php echo $row['address']; ?>'>
 							</div>
 						</div>
 
@@ -130,25 +141,43 @@ while ($row = $results->fetch_assoc()) {
 						</div>
 
 						<div class='row mb-3'>
+							<div class="col">
+								<h5>Emergency Contact</h5>
+							</div>
+						</div>
+
+						<div class='row mb-3'>
 							<div class="col-6">
-								<label for='emergencyContactName<?php echo $row['id']; ?>' class='form-label'>Emergency Contact</label>
+								<label for='emergencyContactName<?php echo $row['id']; ?>' class='form-label'>Name</label>
 								<input type='text' class='form-control' id='emergencyContactName<?php echo $row['id']; ?>' name='emergencyContactName' value='<?php echo $row['emergencyContactName']; ?>'>
 							</div>
 
 							<div class="col-6">
-								<label for='emergencyContactNumber<?php echo $row['id']; ?>' class='form-label'>Emergency Contact Number</label>
+								<label for='emergencyContactNumber<?php echo $row['id']; ?>' class='form-label'>Number</label>
 								<input type='text' class='form-control' id='emergencyContactNumber<?php echo $row['id']; ?>' name='emergencyContactNumber' value='<?php echo $row['emergencyContactNumber']; ?>'>
 							</div>
 						</div>
 
-						<div class='mb-3'>
-						</div>
-						<button type='submit' class='btn btn-primary save-changes' data-entry-id='<?php echo $row['id']; ?>'>Save changes</button>
-					</form>
-				</div>
+						<div class='row mb-3'>
+						<div class="col">
+								<button type='' class='btn btn-primary save-changes' data-entry-id='<?php echo $row['id']; ?>'>Edit</button>
+							</div>
 
-				<div class='modal-footer'>
-					<button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Close</button>
+							<div class="col">
+							<a class="btn btn-danger" href="deletePatients.php?id=<?php echo $row['id']; ?>">Delete</a>
+							</div>
+							
+							<div class="col">
+								<input type="hidden" name="id" value="<?php echo $row['id']; ?>">
+								<button type="submit" class="btn btn-primary save-changes" data-entry-id="<?php echo $row['id']; ?>">Save changes</button>
+							</div>
+
+							<div class="col">
+								<button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Close</button>
+							</div>
+						</div>
+					</form>
+
 				</div>
 			</div>
 		</div>
@@ -159,7 +188,7 @@ while ($row = $results->fetch_assoc()) {
 
 <!-- Add Patient Modal -->
 <div class='modal fade' id='addPatientModal' tabindex='-1' aria-labelledby='addPatientModalLabel' aria-hidden='true'>
-	<div class='modal-dialog'>
+	<div class='modal-dialog modal-lg'>
 		<div class='modal-content'>
 			<div class='modal-header'>
 				<h5 class='modal-title' id='addPatientModalLabel'>Add Patient</h5>
@@ -259,7 +288,4 @@ while ($row = $results->fetch_assoc()) {
 	</div>
 </div>
 
-
-
 <script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
-<script src='script.js'></script>

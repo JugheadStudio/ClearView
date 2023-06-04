@@ -27,3 +27,13 @@ a {
 .nav-link:hover {
 	cursor: pointer;
 }
+
+.modal-dialog {
+	max-width: 900px !important;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+
+/* -------------------------------- */
+/* ------- Media Queries ---------- */

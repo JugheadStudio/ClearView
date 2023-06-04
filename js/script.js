@@ -26,6 +26,7 @@ $(document).ready(function() {
 		var gender = $('#gender' + entryId).val();
 		var phoneNumber = $('#phoneNumber' + entryId).val();
 		var email = $('#email' + entryId).val();
+		var address = $('#address' + entryId).val();
 		var medicalAid = $('#medicalAid' + entryId).val();
 		var medicalAidNumber = $('#medicalAidNumber' + entryId).val();
 		var bloodType = $('#bloodType' + entryId).val();
@@ -54,13 +55,18 @@ $(document).ready(function() {
 				gender: gender,
 				phoneNumber: phoneNumber,
 				email: email,
+				address: address,
 				medicalAid: medicalAid,
 				medicalAidNumber: medicalAidNumber,
 				bloodType: bloodType,
 				allergy: allergy,
 				emergencyContactName: emergencyContactName,
 				emergencyContactNumber: emergencyContactNumber
-			}
+			},
+			error: function(xhr, status, error) {
+				console.error(error); // Log the error to the console
+				// Handle the error appropriately (e.g., show an error message to the user)
+			}	
 		});
 	});
 });
@@ -72,22 +78,14 @@ function loadContent(page) {
 	// Store the active page in session storage
 	sessionStorage.setItem('activePage', page);
 
-	var xhttp = new XMLHttpRequest();
-	xhttp.onreadystatechange = function() {
-		if (this.readyState == 4 && this.status == 200) {
-			document.getElementById('content').innerHTML = this.responseText;
-		}
-	};
-	xhttp.open('GET', 'pages/' + page + '.php', true);
-	xhttp.send();
-
-	// Clear the active class from all nav links
-	var navLinks = document.querySelectorAll('.nav-link');
-	navLinks.forEach(function(link) {
-		link.classList.remove('active');
+	$.get('pages/' + page + '.php', function(response) {
+		$('#content').html(response);
 	});
 
+	// Clear the active class from all nav links
+	$('.nav-link').removeClass('active');
+
 	// Add the active class to the current nav link
-	var currentLink = document.getElementById(page + 'Link');
-	currentLink.classList.add('active');
+	$('#' + page + 'Link').addClass('active');
 }
+
