@@ -2,6 +2,8 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
+session_start();
+
 include '../db.php';
 ?>
 
@@ -61,18 +63,25 @@ while ($row = $results->fetch_assoc()) {
 					</div>
 
 					<form action="updatePatients.php" method="POST" enctype="multipart/form-data">
+					<input type="hidden" name="id" value="<?php echo $row['id']; ?>">
 						
 						<div class='row mb-3'>
-							<div class='col text-center'>
-								<img src='<?php echo $row['profilePicture']; ?>' alt="" width="150" height="150" class="rounded-circle me-2">
+							<div class="col text-center">
+								<div class="position-relative modalPFP">
+									<img src="<?php echo $row['profilePicture']; ?>" alt="" width="150" height="150" class="rounded-circle me-2">
+									<label for="profilePicture<?php echo $row['id']; ?>" class="change-image-label">
+										<i class="fa fa-camera"></i>
+										<input class="form-control isEditing" type="file" id="profilePicture<?php echo $row['id']; ?>" name="profilePicture" accept="image/*" disabled>
+									</label>
+								</div>
 							</div>
 
 							<div class="col">
 								<label for='name<?php echo $row['id']; ?>' class='form-label'>Name</label>
-								<input type='text' class='form-control' id='name<?php echo $row['id']; ?>' name='name' value='<?php echo $row['name']; ?>'>
+								<input type='text' class='form-control isEditing' id='name<?php echo $row['id']; ?>' name='name' value='<?php echo $row['name']; ?>' disabled>
 
 								<label for="gender<?php echo $row['id']; ?>" class="form-label">Gender</label>
-								<select class="form-select" id="gender<?php echo $row['id']; ?>" name="gender">
+								<select class="form-select isEditing" id="gender<?php echo $row['id']; ?>" name="gender" disabled>
 									<option value="Male" <?php if ($row['gender'] == 'Male') echo ' selected'; ?>>Male</option>
 									<option value="Female" <?php if ($row['gender'] == 'Female') echo ' selected'; ?>>Female</option>
 									<option value="Other" <?php if ($row['gender'] == 'Other') echo ' selected'; ?>>Other</option>
@@ -81,55 +90,48 @@ while ($row = $results->fetch_assoc()) {
 
 							<div class="col">
 								<label for='surname<?php echo $row['id']; ?>' class='form-label'>Surname</label>
-								<input type='text' class='form-control' id='surname<?php echo $row['id']; ?>' name='surname' value='<?php echo $row['surname']; ?>'>
+								<input type='text' class='form-control isEditing' id='surname<?php echo $row['id']; ?>' name='surname' value='<?php echo $row['surname']; ?>' disabled>
 
 								<label for='dateOfBirth<?php echo $row['id']; ?>' class='form-label'>Date of Birth</label>
-								<input type='date' class='form-control' id='dateOfBirth<?php echo $row['id']; ?>' name='dateOfBirth' value='<?php echo $row['dateOfBirth']; ?>'>
-							</div>
-						</div>
-
-						<div class='row mb-3'>
-							<div class="col-6">
-								<label for='profilePicture<?php echo $row['id']; ?>' class='form-label'>Profile Picture</label>
-								<input type='text' class='form-control' id='profilePicture<?php echo $row['id']; ?>' name='profilePicture' value='<?php echo $row['profilePicture']; ?>'>
+								<input type='date' class='form-control isEditing' id='dateOfBirth<?php echo $row['id']; ?>' name='dateOfBirth' value='<?php echo $row['dateOfBirth']; ?>' disabled>
 							</div>
 						</div>
 
 						<div class='row mb-3'>
 							<div class="col-6">
 								<label for='email<?php echo $row['id']; ?>' class='form-label'>Email</label>
-								<input type='email' class='form-control' id='email<?php echo $row['id']; ?>' name='email' value='<?php echo $row['email']; ?>'>
+								<input type='email' class='form-control isEditing' id='email<?php echo $row['id']; ?>' name='email' value='<?php echo $row['email']; ?>' disabled>
 							</div>
 							
 							<div class="col-6">
 								<label for='phoneNumber<?php echo $row['id']; ?>' class='form-label'>Number</label>
-								<input type='text' class='form-control' id='phoneNumber<?php echo $row['id']; ?>' name='phoneNumber' value='<?php echo $row['phoneNumber']; ?>'>
+								<input type='text' class='form-control isEditing' id='phoneNumber<?php echo $row['id']; ?>' name='phoneNumber' value='<?php echo $row['phoneNumber']; ?>' disabled>
 							</div>
 						</div>
 
 						<div class='row mb-3'>
 							<div class="col-6">
 								<label for='address<?php echo $row['id']; ?>' class='form-label'>Address</label>
-								<input type='text' class='form-control' id='address<?php echo $row['id']; ?>' name='address' value='<?php echo $row['address']; ?>'>
+								<input type='text' class='form-control isEditing' id='address<?php echo $row['id']; ?>' name='address' value='<?php echo $row['address']; ?>' disabled>
 							</div>
 						</div>
 
 						<div class='row mb-3'>
 							<div class="col-6">
 								<label for='medicalAid<?php echo $row['id']; ?>' class='form-label'>Medical Aid</label>
-								<input type='text' class='form-control' id='medicalAid<?php echo $row['id']; ?>' name='medicalAid' value='<?php echo $row['medicalAid']; ?>'>
+								<input type='text' class='form-control isEditing' id='medicalAid<?php echo $row['id']; ?>' name='medicalAid' value='<?php echo $row['medicalAid']; ?>' disabled>
 							</div>
 
 							<div class="col-6">
 								<label for='medicalAidNumber<?php echo $row['id']; ?>' class='form-label'>Medical Aid Number</label>
-								<input type='text' class='form-control' id='medicalAidNumber<?php echo $row['id']; ?>' name='medicalAidNumber' value='<?php echo $row['medicalAidNumber']; ?>'>
+								<input type='text' class='form-control isEditing' id='medicalAidNumber<?php echo $row['id']; ?>' name='medicalAidNumber' value='<?php echo $row['medicalAidNumber']; ?>' disabled>
 							</div>
 						</div>
 
 						<div class='row mb-3'>
 							<div class="col-6">
 								<label for="bloodType<?php echo $row['id']; ?>" class="form-label">Blood Type</label>
-								<select class="form-select" id="bloodType<?php echo $row['id']; ?>" name="bloodType">
+								<select class="form-select isEditing" id="bloodType<?php echo $row['id']; ?>" name="bloodType" disabled>
 									<option value="Not Sure" <?php if ($row['bloodType'] == 'Not Sure') echo 'selected'; ?>>Not Sure</option>
 									<option value="A" <?php if ($row['bloodType'] == 'A') echo 'selected'; ?>>A</option>
 									<option value="B" <?php if ($row['bloodType'] == 'B') echo 'selected'; ?>>B</option>
@@ -140,7 +142,7 @@ while ($row = $results->fetch_assoc()) {
 
 							<div class="col-6">
 								<label for='allergy<?php echo $row['id']; ?>' class='form-label'>Allergies</label>
-								<input type='text' class='form-control' id='allergy<?php echo $row['id']; ?>' name='allergy' value='<?php echo $row['allergy']; ?>'>
+								<input type='text' class='form-control isEditing' id='allergy<?php echo $row['id']; ?>' name='allergy' value='<?php echo $row['allergy']; ?>' disabled>
 							</div>
 						</div>
 
@@ -153,32 +155,26 @@ while ($row = $results->fetch_assoc()) {
 						<div class='row mb-3'>
 							<div class="col-6">
 								<label for='emergencyContactName<?php echo $row['id']; ?>' class='form-label'>Name</label>
-								<input type='text' class='form-control' id='emergencyContactName<?php echo $row['id']; ?>' name='emergencyContactName' value='<?php echo $row['emergencyContactName']; ?>'>
+								<input type='text' class='form-control isEditing' id='emergencyContactName<?php echo $row['id']; ?>' name='emergencyContactName' value='<?php echo $row['emergencyContactName']; ?>' disabled>
 							</div>
 
 							<div class="col-6">
 								<label for='emergencyContactNumber<?php echo $row['id']; ?>' class='form-label'>Number</label>
-								<input type='text' class='form-control' id='emergencyContactNumber<?php echo $row['id']; ?>' name='emergencyContactNumber' value='<?php echo $row['emergencyContactNumber']; ?>'>
+								<input type='text' class='form-control isEditing' id='emergencyContactNumber<?php echo $row['id']; ?>' name='emergencyContactNumber' value='<?php echo $row['emergencyContactNumber']; ?>' disabled>
 							</div>
 						</div>
 
-						<div class='row mb-3'>
-						<div class="col">
-								<button type='' class='btn btn-primary save-changes' data-entry-id='<?php echo $row['id']; ?>'>Edit</button>
-							</div>
+						<div class="text-end">
+							<?php if ($_SESSION['rank'] == 1) : ?>
+								<button type="submit" class="btn btn-primary save-changes isEditingButton" data-entry-id="<?php echo $row['id']; ?>">Save changes</button>
+								<a class="btn btn-danger isEditingButton" href="deletePatients.php?id=<?php echo $row['id']; ?>">Delete</a>
+								<button type="button" class="btn btn-primary patientCancelButton isEditingButton">Cancel</button>
 
-							<div class="col">
-							<a class="btn btn-danger" href="deletePatients.php?id=<?php echo $row['id']; ?>">Delete</a>
-							</div>
-							
-							<div class="col">
-								<input type="hidden" name="id" value="<?php echo $row['id']; ?>">
-								<button type="submit" class="btn btn-primary save-changes" data-entry-id="<?php echo $row['id']; ?>">Save changes</button>
-							</div>
-
-							<div class="col">
-								<button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Close</button>
-							</div>
+								<button type="button" class="btn btn-primary patientEditButton notEditing">Edit</button>
+								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+							<?php else : ?>
+								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+							<?php endif; ?>
 						</div>
 					</form>
 
@@ -292,4 +288,58 @@ while ($row = $results->fetch_assoc()) {
 	</div>
 </div>
 
-<script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
+<script>
+	if (typeof notEditingElements === 'undefined') {
+  let notEditingElements = document.querySelectorAll('.notEditing');
+  let isEditingElements = document.querySelectorAll('.isEditing');
+  let isEditingButtons = document.querySelectorAll('.isEditingButton');
+  let patientEditButtons = document.querySelectorAll('.patientEditButton');
+  let patientCancelButtons = document.querySelectorAll('.patientCancelButton');
+
+  for (let i = 0; i < patientEditButtons.length; i++) {
+    patientEditButtons[i].addEventListener('click', function() {
+      hideElements(notEditingElements);
+      showElements(isEditingButtons);
+      enableFields(isEditingElements);
+    });
+  }
+
+  for (let i = 0; i < patientCancelButtons.length; i++) {
+    patientCancelButtons[i].addEventListener('click', function() {
+      showElements(notEditingElements);
+      hideElements(isEditingButtons);
+      disableFields(isEditingElements);
+    });
+  }
+
+  function hideElements(elements) {
+    for (let i = 0; i < elements.length; i++) {
+      elements[i].style.display = 'none';
+    }
+  }
+
+  function showElements(elements) {
+    for (let i = 0; i < elements.length; i++) {
+      elements[i].style.display = '';
+    }
+  }
+
+  function enableFields(elements) {
+    for (let i = 0; i < elements.length; i++) {
+      elements[i].disabled = false;
+    }
+  }
+
+  function disableFields(elements) {
+    for (let i = 0; i < elements.length; i++) {
+      elements[i].disabled = true;
+    }
+  }
+
+  showElements(notEditingElements);
+  hideElements(isEditingButtons);
+  disableFields(isEditingElements);
+}
+
+
+</script>

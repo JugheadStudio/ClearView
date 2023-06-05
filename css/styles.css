@@ -28,11 +28,51 @@ a {
 	cursor: pointer;
 }
 
-/* .modal-dialog {
-	max-width: 900px ;
-	margin-right: auto;
-	margin-left: auto;
-} */
+/* -------------------------------- */
+/* ------ Profile Picture --------- */
+
+.modalPFP {
+	width: 150px;
+	height: 150px;
+	margin: auto;
+}
+
+.modalPFP img {
+	border: 3px solid tomato;
+}
+
+.change-image-label {
+  position: absolute;
+  bottom: -8%;
+  right: -5%;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+	width: 35px;
+	height: 35px;
+	border-radius: 50%;
+  background-color: white;
+	border: 3px solid tomato;
+	transition: opacity 0.5s ease-in-out;
+	font-size: 1.15rem;
+	color: tomato;
+}
+/* center align i  */
+.change-image-label i {
+	position: absolute;
+	top: 55%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.change-image-label:hover {
+	opacity: 1;
+  background-color: tomato;
+	color: white;
+}
+
+.change-image-label input[type="file"] {
+  display: none;
+}
 
 
 /* -------------------------------- */

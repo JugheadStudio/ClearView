@@ -1,3 +1,16 @@
+<?php
+
+$loggedInUser = null; // Initialize the variable
+
+// Check if the user is logged in and the session variables exist
+if (isset($_SESSION['username']) && isset($_SESSION['profilePicture'])) {
+  $loggedInUser = $_SESSION['username'];
+  $profilePicture = $_SESSION['profilePicture'];
+  $name = $_SESSION['name'];
+}
+
+?>
+
 <div class="d-flex flex-nowrap sidebar-wrapper">
 	<div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark sidebar-container">
 		<a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
@@ -12,6 +25,13 @@
 					Appointments
 				</a>
 			</li>
+			<?php if ($_SESSION['rank'] == 1) : ?>
+			<li>
+				<a id="receptionistsLink" class="nav-link" onclick="loadContent('receptionists')">
+					Receptionists
+				</a>
+			</li>
+			<?php endif; ?>
 			<li>
 				<a id="doctorsLink" class="nav-link" onclick="loadContent('doctors')">
 					Doctors
@@ -26,9 +46,11 @@
 
 		<div class="row">
 			<div class="col text-center">
-				<img src="https://avatars.githubusercontent.com/u/55399963?v=4" alt="" width="65" height="65" class="rounded-circle mb-4">
+				<img src="<?php echo $profilePicture; ?>" alt="Profile Picture" width="65" height="65" class="rounded-circle logged-in-user-profile-picture mb-4" >
+				<p><?php echo $name; ?></p>
 				<button class="btn btn-outline-light" type="button" data-bs-toggle="modal" data-bs-target="#signOutModal">Sign out</button>
 			</div>
+
 		</div>
 
 		<!-- Sign Out Modal -->
@@ -49,7 +71,6 @@
 				</div>
 			</div>
 		</div>
-
-
+		
 	</div>
 </div>

@@ -7,11 +7,11 @@ include '../db.php';
 session_start();
 
 if (isset($_SESSION['username'])) {
-    // User is logged in
-    echo "Welcome, " . $_SESSION['username'] . "!";
+  // User is logged in
+  echo "Welcome, " . $_SESSION['username'] . "!";
 } else {
-    // User is not logged in
-    echo "You are not logged in.";
+  // User is not logged in
+  echo "You are not logged in.";
 }
 
 // Check if the username and password values are set
@@ -28,8 +28,21 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
     $error = "Query execution failed: " . $conn->error;
   } else {
     if ($result->num_rows == 1) {
-      // Login successful, store user information in session
+      
+      $row = $result->fetch_assoc();
+      
+      // Store logged in user data in session
       $_SESSION['username'] = $username;
+      $_SESSION['name'] = $row['name'];
+      $_SESSION['surname'] = $row['surname'];
+      $_SESSION['profilePicture'] = $row['profilePicture'];
+      $_SESSION['dateOfBirth'] = $row['dateOfBirth'];
+      $_SESSION['gender'] = $row['gender'];
+      $_SESSION['phoneNumber'] = $row['phoneNumber'];
+      $_SESSION['email'] = $row['email'];
+      $_SESSION['password'] = $row['password'];
+      $_SESSION['rank'] = $row['rank'];
+    
       // Redirect to the home page or any other authenticated content
       header("location: ../index.php");
       exit();
@@ -56,7 +69,7 @@ $conn->close();
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>ClearView - Login</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-	<link rel="stylesheet" href="css/styles.css">
+	<link rel="stylesheet" href="../css/styles.css">
 </head>
 
 <body>
