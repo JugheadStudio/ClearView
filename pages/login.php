@@ -20,32 +20,41 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
   $password = $_POST['password'];
 
   // Validate the user's credentials
-  $sql = "SELECT * FROM receptionist WHERE username = '$username' AND password = '$password'";
-  $result = $conn->query($sql);
+  $sql = "SELECT * FROM receptionist WHERE username = ?";
+  $stmt = $conn->prepare($sql);
+  $stmt->bind_param("s", $username);
+  $stmt->execute();
+  $result = $stmt->get_result();
 
   if (!$result) {
     // Query execution failed, display the error message
     $error = "Query execution failed: " . $conn->error;
   } else {
     if ($result->num_rows == 1) {
-      
       $row = $result->fetch_assoc();
-      
-      // Store logged in user data in session
-      $_SESSION['username'] = $username;
-      $_SESSION['name'] = $row['name'];
-      $_SESSION['surname'] = $row['surname'];
-      $_SESSION['profilePicture'] = $row['profilePicture'];
-      $_SESSION['dateOfBirth'] = $row['dateOfBirth'];
-      $_SESSION['gender'] = $row['gender'];
-      $_SESSION['phoneNumber'] = $row['phoneNumber'];
-      $_SESSION['email'] = $row['email'];
-      $_SESSION['password'] = $row['password'];
-      $_SESSION['rank'] = $row['rank'];
-    
-      // Redirect to the home page or any other authenticated content
-      header("location: ../index.php");
-      exit();
+      $storedPassword = $row['password'];
+
+      // Verify the password
+      if (password_verify($password, $storedPassword)) {
+        // Password is correct, store logged in user data in session
+        $_SESSION['username'] = $username;
+        $_SESSION['name'] = $row['name'];
+        $_SESSION['surname'] = $row['surname'];
+        $_SESSION['profilePicture'] = $row['profilePicture'];
+        $_SESSION['dateOfBirth'] = $row['dateOfBirth'];
+        $_SESSION['gender'] = $row['gender'];
+        $_SESSION['phoneNumber'] = $row['phoneNumber'];
+        $_SESSION['email'] = $row['email'];
+        $_SESSION['password'] = $row['password'];
+        $_SESSION['rank'] = $row['rank'];
+
+        // Redirect to the home page or any other authenticated content
+        header("location: ../index.php");
+        exit();
+      } else {
+        // Login failed, display an error message
+        $error = "Invalid username or password";
+      }
     } else {
       // Login failed, display an error message
       $error = "Invalid username or password";
@@ -58,6 +67,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
 
 $conn->close();
 ?>
+
 
 
 <!DOCTYPE html>
@@ -85,6 +95,7 @@ $conn->close();
 				<div class="form-group">
 					<label for="password">Password:</label>
 					<input type="password" id="password" name="password" class="form-control" required>
+          <a href="forgotPassword.php">Forgot password</a>
 				</div>
 				<button type="submit" class="btn btn-primary">Login</button>
 				<p><?php echo isset($error) ? $error : ''; ?></p>

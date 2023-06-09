@@ -24,30 +24,33 @@ $filename = uniqid() . '.' . $fileExtension;
 // Set the target file path
 $targetFile = 'uploads/' . $filename;
 
+// Hash the password
+$hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
 $sql = "INSERT INTO doctor (username, password, profilePicture, name, surname, dateOfBirth, gender, phoneNumber, email, roomID, discipline, rate)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 $stmt = $conn->prepare($sql);
 $stmt->bind_param(
-    "ssssssssssss",
-    $username,
-    $password,
-    $targetFile,
-    $name,
-    $surname,
-    $dateOfBirth,
-    $gender,
-    $phoneNumber,
-    $email,
-    $roomID,
-    $discipline,
-    $rate
+  "ssssssssssss",
+  $username,
+  $hashedPassword,
+  $targetFile,
+  $name,
+  $surname,
+  $dateOfBirth,
+  $gender,
+  $phoneNumber,
+  $email,
+  $roomID,
+  $discipline,
+  $rate
 );
 
 if ($stmt->execute()) {
-    echo 'Data inserted successfully';
+  echo 'Data inserted successfully';
 } else {
-    echo 'Error inserting data: ' . $stmt->error;
+  echo 'Error inserting data: ' . $stmt->error;
 }
 
 $stmt->close();
@@ -55,20 +58,20 @@ $conn->close();
 
 // Handle file upload
 if (isset($_FILES['profilePicture']) && $_FILES['profilePicture']['error'] === UPLOAD_ERR_OK) {
-    $tempFile = $_FILES['profilePicture']['tmp_name'];
+  $tempFile = $_FILES['profilePicture']['tmp_name'];
 
-    // Move the uploaded file to the desired location
-    if (move_uploaded_file($tempFile, $targetFile)) {
-        // File upload success
-        echo "File uploaded successfully.";
-        // Perform further processing or database storage here
-    } else {
-        // File upload failed
-        echo "File upload failed.";
-    }
+  // Move the uploaded file to the desired location
+  if (move_uploaded_file($tempFile, $targetFile)) {
+    // File upload success
+    echo "File uploaded successfully.";
+    // Perform further processing or database storage here
+  } else {
+    // File upload failed
+    echo "File upload failed.";
+  }
 } else {
-    // No file uploaded or upload error occurred
-    echo "No file uploaded or upload error occurred.";
+  // No file uploaded or upload error occurred
+  echo "No file uploaded or upload error occurred.";
 }
 
 // Redirect to index.php

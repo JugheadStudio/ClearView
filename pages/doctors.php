@@ -9,7 +9,7 @@ include '../db.php';
 
 <div class="row mt-5 mb-3">
 	<div class="col text-end">
-		<button class='btn btn-primary save-changes' data-bs-toggle='modal' data-bs-target='#addDoctorModal'>Add Patient</button>
+		<button class='btn btn-primary save-changes' data-bs-toggle='modal' data-bs-target='#addDoctorModal'>Add Doctor</button>
 	</div>
 </div>
 
