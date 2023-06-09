@@ -7,7 +7,11 @@ session_start();
 include '../db.php';
 ?>
 
-<button class='btn btn-primary save-changes' data-bs-toggle='modal' data-bs-target='#addDoctorModal'>Add Doctor</button>
+<div class="row mt-5 mb-3">
+	<div class="col text-end">
+		<button class='btn btn-primary save-changes' data-bs-toggle='modal' data-bs-target='#addDoctorModal'>Add Patient</button>
+	</div>
+</div>
 
 <table class='table'>
 	<tr>
@@ -61,10 +65,10 @@ while ($row = $results->fetch_assoc()) {
 						<div class='row mb-3'>
 							<div class="col text-center">
 								<div class="position-relative modalPFP">
-									<img src="<?php echo $row['profilePicture']; ?>" alt="" width="150" height="150" class="rounded-circle me-2">
+									<img src="<?php echo $row['profilePicture']; ?>" alt="" width="150" height="150" class="rounded-circle me-2" id="previewImage<?php echo $row['id']; ?>">
 									<label for="profilePicture<?php echo $row['id']; ?>" class="change-image-label">
 										<i class="fa fa-camera"></i>
-										<input class="form-control isEditing" type="file" id="profilePicture<?php echo $row['id']; ?>" name="profilePicture" accept="image/*" disabled>
+										<input class="form-control isEditing" type="file" id="profilePicture<?php echo $row['id']; ?>" name="profilePicture" accept="image/*" data-preview-id="<?php echo $row['id']; ?>">
 									</label>
 								</div>
 							</div>
@@ -76,11 +80,11 @@ while ($row = $results->fetch_assoc()) {
 								<label for='name<?php echo $row['id']; ?>' class='form-label'>Name</label>
 								<input type='text' class='form-control isEditing' id='name<?php echo $row['id']; ?>' name='name' value='<?php echo $row['name']; ?>'>
 							</div>
-							
+
 							<div class="col">
 								<label for='password<?php echo $row['id']; ?>' class='form-label'>Password</label>
 								<input type='password' class='form-control isEditing' id='password<?php echo $row['id']; ?>' name='password' value='<?php echo $row['password']; ?>'>
-								
+
 								<label for='surname<?php echo $row['id']; ?>' class='form-label'>Surname</label>
 								<input type='text' class='form-control isEditing' id='surname<?php echo $row['id']; ?>' name='surname' value='<?php echo $row['surname']; ?>'>
 							</div>
@@ -97,7 +101,7 @@ while ($row = $results->fetch_assoc()) {
 								<select class="form-select isEditing" id="gender<?php echo $row['id']; ?>" name="gender">
 									<option value="Male" <?php if ($row['gender'] == 'Male') echo ' selected'; ?>>Male</option>
 									<option value="Female" <?php if ($row['gender'] == 'Female') echo ' selected'; ?>>Female</option>
-									<option value="Other" <?php if ($row['gender'] == 'Other') echo ' selected'; ?>>Other</option>
+									<option value="Prefer not to say" <?php if ($row['gender'] == 'Prefer not to say') echo ' selected'; ?>>Prefer not to say</option>
 								</select>
 							</div>
 						</div>
@@ -167,6 +171,16 @@ while ($row = $results->fetch_assoc()) {
 				<form id='addPatientForm' action='createDoctors.php' method='POST' enctype="multipart/form-data">
 
 					<div class='row mb-3'>
+						<div class="col text-center">
+							<div class="position-relative modalPFP">
+								<img src="#" alt="" width="150" height="150" class="rounded-circle me-2" id="previewImage">
+								<label for="profilePicture" class="change-image-label">
+									<i class="fa fa-camera"></i>
+									<input class="form-control" type="file" id="profilePicture" name="profilePicture" accept="image/*" required>
+								</label>
+							</div>
+						</div>
+
 						<div class='col-6'>
 							<label for='username' class='form-label'>User Name</label>
 							<input type='text' class='form-control' id='username' name='username' required>
@@ -180,18 +194,11 @@ while ($row = $results->fetch_assoc()) {
 
 					<div class='row mb-3'>
 						<div class='col'>
-							<label for='profilePicture' class='form-label'>Profile Picture</label>
-							<input type='file' class='form-control' id='profilePicture' name='profilePicture' accept='image/*' required>
-						</div>
-					</div>
-
-					<div class='row mb-3'>
-						<div class='col-md-6'>
 							<label for='name' class='form-label'>Name</label>
 							<input type='text' class='form-control' id='name' name='name' required>
 						</div>
 
-						<div class='col-md-6'>
+						<div class='col'>
 							<label for='surname' class='form-label'>Surname</label>
 							<input type='text' class='form-control' id='surname' name='surname' required>
 						</div>
@@ -208,7 +215,7 @@ while ($row = $results->fetch_assoc()) {
 							<select class='form-select' id='gender' name='gender' required>
 								<option value='Male'>Male</option>
 								<option value='Female'>Female</option>
-								<option value='Other'>Other</option>
+								<option value='Prefer not to say'>Prefer not to say</option>
 							</select>
 						</div>
 					</div>
@@ -255,54 +262,83 @@ while ($row = $results->fetch_assoc()) {
 
 <script>
 	if (typeof notEditingElements === 'undefined') {
-  let notEditingElements = document.querySelectorAll('.notEditing');
-  let isEditingElements = document.querySelectorAll('.isEditing');
-  let isEditingButtons = document.querySelectorAll('.isEditingButton');
-  let doctorEditButtons = document.querySelectorAll('.doctorEditButton');
-  let doctorCancelButtons = document.querySelectorAll('.doctorCancelButton');
+		let notEditingElements = document.querySelectorAll('.notEditing');
+		let isEditingElements = document.querySelectorAll('.isEditing');
+		let isEditingButtons = document.querySelectorAll('.isEditingButton');
+		let doctorEditButtons = document.querySelectorAll('.doctorEditButton');
+		let doctorCancelButtons = document.querySelectorAll('.doctorCancelButton');
 
-  for (let i = 0; i < doctorEditButtons.length; i++) {
-    doctorEditButtons[i].addEventListener('click', function() {
-      hideElements(notEditingElements);
-      showElements(isEditingButtons);
-      enableFields(isEditingElements);
-    });
-  }
+		for (let i = 0; i < doctorEditButtons.length; i++) {
+			doctorEditButtons[i].addEventListener('click', function() {
+				hideElements(notEditingElements);
+				showElements(isEditingButtons);
+				enableFields(isEditingElements);
+			});
+		}
 
-  for (let i = 0; i < doctorCancelButtons.length; i++) {
-    doctorCancelButtons[i].addEventListener('click', function() {
-      showElements(notEditingElements);
-      hideElements(isEditingButtons);
-      disableFields(isEditingElements);
-    });
-  }
+		for (let i = 0; i < doctorCancelButtons.length; i++) {
+			doctorCancelButtons[i].addEventListener('click', function() {
+				showElements(notEditingElements);
+				hideElements(isEditingButtons);
+				disableFields(isEditingElements);
+			});
+		}
 
-  function hideElements(elements) {
-    for (let i = 0; i < elements.length; i++) {
-      elements[i].style.display = 'none';
-    }
-  }
+		function hideElements(elements) {
+			for (let i = 0; i < elements.length; i++) {
+				elements[i].style.display = 'none';
+			}
+		}
 
-  function showElements(elements) {
-    for (let i = 0; i < elements.length; i++) {
-      elements[i].style.display = '';
-    }
-  }
+		function showElements(elements) {
+			for (let i = 0; i < elements.length; i++) {
+				elements[i].style.display = '';
+			}
+		}
 
-  function enableFields(elements) {
-    for (let i = 0; i < elements.length; i++) {
-      elements[i].disabled = false;
-    }
-  }
+		function enableFields(elements) {
+			for (let i = 0; i < elements.length; i++) {
+				elements[i].disabled = false;
+			}
+		}
 
-  function disableFields(elements) {
-    for (let i = 0; i < elements.length; i++) {
-      elements[i].disabled = true;
-    }
-  }
+		function disableFields(elements) {
+			for (let i = 0; i < elements.length; i++) {
+				elements[i].disabled = true;
+			}
+		}
 
-  showElements(notEditingElements);
-  hideElements(isEditingButtons);
-  disableFields(isEditingElements);
-}
+		showElements(notEditingElements);
+		hideElements(isEditingButtons);
+		disableFields(isEditingElements);
+	}
+
+	// Image upload preview
+	function handleImageUpload(input, previewImage) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+			reader.onload = function(e) {
+				previewImage.attr('src', e.target.result);
+			};
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
+
+	$(document).ready(function() {
+		// Image upload preview for the add instance
+		$('#profilePicture').change(function() {
+			handleImageUpload(this, $('#previewImage'));
+		});
+
+		// Image upload preview for the update instance
+		$('.isEditing[type="file"]').change(function() {
+			var previewId = $(this).data('preview-id');
+			var previewImage = $('#previewImage' + previewId);
+			if (previewImage.length) {
+				handleImageUpload(this, previewImage);
+			} else {
+				console.error('Preview image element not found for ID: ' + previewId);
+			}
+		});
+	});
 </script>

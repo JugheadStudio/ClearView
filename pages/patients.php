@@ -63,15 +63,15 @@ while ($row = $results->fetch_assoc()) {
 					</div>
 
 					<form action="updatePatients.php" method="POST" enctype="multipart/form-data">
-					<input type="hidden" name="id" value="<?php echo $row['id']; ?>">
-						
+						<input type="hidden" name="id" value="<?php echo $row['id']; ?>">
+
 						<div class='row mb-3'>
 							<div class="col text-center">
 								<div class="position-relative modalPFP">
-									<img src="<?php echo $row['profilePicture']; ?>" alt="" width="150" height="150" class="rounded-circle me-2">
+									<img src="<?php echo $row['profilePicture']; ?>" alt="" width="150" height="150" class="rounded-circle me-2" id="previewImage<?php echo $row['id']; ?>">
 									<label for="profilePicture<?php echo $row['id']; ?>" class="change-image-label">
 										<i class="fa fa-camera"></i>
-										<input class="form-control isEditing" type="file" id="profilePicture<?php echo $row['id']; ?>" name="profilePicture" accept="image/*" disabled>
+										<input class="form-control isEditing" type="file" id="profilePicture<?php echo $row['id']; ?>" name="profilePicture" accept="image/*" data-preview-id="<?php echo $row['id']; ?>">
 									</label>
 								</div>
 							</div>
@@ -84,7 +84,7 @@ while ($row = $results->fetch_assoc()) {
 								<select class="form-select isEditing" id="gender<?php echo $row['id']; ?>" name="gender" disabled>
 									<option value="Male" <?php if ($row['gender'] == 'Male') echo ' selected'; ?>>Male</option>
 									<option value="Female" <?php if ($row['gender'] == 'Female') echo ' selected'; ?>>Female</option>
-									<option value="Other" <?php if ($row['gender'] == 'Other') echo ' selected'; ?>>Other</option>
+									<option value="Prefer not to say" <?php if ($row['gender'] == 'Prefer not to say') echo ' selected'; ?>>Prefer not to say</option>
 								</select>
 							</div>
 
@@ -102,7 +102,7 @@ while ($row = $results->fetch_assoc()) {
 								<label for='email<?php echo $row['id']; ?>' class='form-label'>Email</label>
 								<input type='email' class='form-control isEditing' id='email<?php echo $row['id']; ?>' name='email' value='<?php echo $row['email']; ?>' disabled>
 							</div>
-							
+
 							<div class="col-6">
 								<label for='phoneNumber<?php echo $row['id']; ?>' class='form-label'>Number</label>
 								<input type='text' class='form-control isEditing' id='phoneNumber<?php echo $row['id']; ?>' name='phoneNumber' value='<?php echo $row['phoneNumber']; ?>' disabled>
@@ -165,16 +165,12 @@ while ($row = $results->fetch_assoc()) {
 						</div>
 
 						<div class="text-end">
-							<?php if ($_SESSION['rank'] == 1) : ?>
-								<button type="submit" class="btn btn-primary save-changes isEditingButton" data-entry-id="<?php echo $row['id']; ?>">Save changes</button>
-								<a class="btn btn-danger isEditingButton" href="deletePatients.php?id=<?php echo $row['id']; ?>">Delete</a>
-								<button type="button" class="btn btn-primary patientCancelButton isEditingButton">Cancel</button>
+							<button type="submit" class="btn btn-primary save-changes isEditingButton" data-entry-id="<?php echo $row['id']; ?>">Save changes</button>
+							<a class="btn btn-danger isEditingButton" href="deletePatients.php?id=<?php echo $row['id']; ?>">Delete</a>
+							<button type="button" class="btn btn-primary patientCancelButton isEditingButton">Cancel</button>
 
-								<button type="button" class="btn btn-primary patientEditButton notEditing">Edit</button>
-								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-							<?php else : ?>
-								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-							<?php endif; ?>
+							<button type="button" class="btn btn-primary patientEditButton notEditing">Edit</button>
+							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 						</div>
 					</form>
 
@@ -197,21 +193,27 @@ while ($row = $results->fetch_assoc()) {
 			<div class='modal-body'>
 				<form id='addPatientForm' action='createPatients.php' method='POST' enctype="multipart/form-data">
 					<div class='row mb-3'>
-						<div class='col'>
-							<label for='profilePicture' class='form-label'>Profile Picture</label>
-							<input type='file' class='form-control' id='profilePicture' name='profilePicture' accept='image/*' required>
+						<div class="col text-center">
+							<div class="position-relative modalPFP">
+								<img src="#" alt="" width="150" height="150" class="rounded-circle me-2" id="previewImage">
+								<label for="profilePicture" class="change-image-label">
+									<i class="fa fa-camera"></i>
+									<input class="form-control" type="file" id="profilePicture" name="profilePicture" accept="image/*" required>
+								</label>
+							</div>
 						</div>
-					</div>
-					<div class='row mb-3'>
-						<div class='col-md-6'>
+
+
+						<div class='col'>
 							<label for='name' class='form-label'>Name</label>
 							<input type='text' class='form-control' id='name' name='name' required>
 						</div>
-						<div class='col-md-6'>
+						<div class='col'>
 							<label for='surname' class='form-label'>Surname</label>
 							<input type='text' class='form-control' id='surname' name='surname' required>
 						</div>
 					</div>
+
 					<div class='row mb-3'>
 						<div class='col-md-6'>
 							<label for='dateOfBirth' class='form-label'>Date of Birth</label>
@@ -222,7 +224,7 @@ while ($row = $results->fetch_assoc()) {
 							<select class='form-select' id='gender' name='gender' required>
 								<option value='Male'>Male</option>
 								<option value='Female'>Female</option>
-								<option value='Other'>Other</option>
+								<option value='Prefer not to say'>Prefer not to say</option>
 							</select>
 						</div>
 					</div>
@@ -290,56 +292,83 @@ while ($row = $results->fetch_assoc()) {
 
 <script>
 	if (typeof notEditingElements === 'undefined') {
-  let notEditingElements = document.querySelectorAll('.notEditing');
-  let isEditingElements = document.querySelectorAll('.isEditing');
-  let isEditingButtons = document.querySelectorAll('.isEditingButton');
-  let patientEditButtons = document.querySelectorAll('.patientEditButton');
-  let patientCancelButtons = document.querySelectorAll('.patientCancelButton');
+		let notEditingElements = document.querySelectorAll('.notEditing');
+		let isEditingElements = document.querySelectorAll('.isEditing');
+		let isEditingButtons = document.querySelectorAll('.isEditingButton');
+		let patientEditButtons = document.querySelectorAll('.patientEditButton');
+		let patientCancelButtons = document.querySelectorAll('.patientCancelButton');
 
-  for (let i = 0; i < patientEditButtons.length; i++) {
-    patientEditButtons[i].addEventListener('click', function() {
-      hideElements(notEditingElements);
-      showElements(isEditingButtons);
-      enableFields(isEditingElements);
-    });
-  }
+		for (let i = 0; i < patientEditButtons.length; i++) {
+			patientEditButtons[i].addEventListener('click', function() {
+				hideElements(notEditingElements);
+				showElements(isEditingButtons);
+				enableFields(isEditingElements);
+			});
+		}
 
-  for (let i = 0; i < patientCancelButtons.length; i++) {
-    patientCancelButtons[i].addEventListener('click', function() {
-      showElements(notEditingElements);
-      hideElements(isEditingButtons);
-      disableFields(isEditingElements);
-    });
-  }
+		for (let i = 0; i < patientCancelButtons.length; i++) {
+			patientCancelButtons[i].addEventListener('click', function() {
+				showElements(notEditingElements);
+				hideElements(isEditingButtons);
+				disableFields(isEditingElements);
+			});
+		}
 
-  function hideElements(elements) {
-    for (let i = 0; i < elements.length; i++) {
-      elements[i].style.display = 'none';
-    }
-  }
+		function hideElements(elements) {
+			for (let i = 0; i < elements.length; i++) {
+				elements[i].style.display = 'none';
+			}
+		}
 
-  function showElements(elements) {
-    for (let i = 0; i < elements.length; i++) {
-      elements[i].style.display = '';
-    }
-  }
+		function showElements(elements) {
+			for (let i = 0; i < elements.length; i++) {
+				elements[i].style.display = '';
+			}
+		}
 
-  function enableFields(elements) {
-    for (let i = 0; i < elements.length; i++) {
-      elements[i].disabled = false;
-    }
-  }
+		function enableFields(elements) {
+			for (let i = 0; i < elements.length; i++) {
+				elements[i].disabled = false;
+			}
+		}
 
-  function disableFields(elements) {
-    for (let i = 0; i < elements.length; i++) {
-      elements[i].disabled = true;
-    }
-  }
+		function disableFields(elements) {
+			for (let i = 0; i < elements.length; i++) {
+				elements[i].disabled = true;
+			}
+		}
 
-  showElements(notEditingElements);
-  hideElements(isEditingButtons);
-  disableFields(isEditingElements);
-}
+		showElements(notEditingElements);
+		hideElements(isEditingButtons);
+		disableFields(isEditingElements);
+	}
 
+	// Image upload preview
+	function handleImageUpload(input, previewImage) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+			reader.onload = function(e) {
+				previewImage.attr('src', e.target.result);
+			};
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
 
+	$(document).ready(function() {
+		// Image upload preview for the add instance
+		$('#profilePicture').change(function() {
+			handleImageUpload(this, $('#previewImage'));
+		});
+
+		// Image upload preview for the update instance
+		$('.isEditing[type="file"]').change(function() {
+			var previewId = $(this).data('preview-id');
+			var previewImage = $('#previewImage' + previewId);
+			if (previewImage.length) {
+				handleImageUpload(this, previewImage);
+			} else {
+				console.error('Preview image element not found for ID: ' + previewId);
+			}
+		});
+	});
 </script>
