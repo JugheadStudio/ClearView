@@ -1,0 +1,7 @@
+To: ruanj.personal@gmail.com
+Subject: Password Reset
+Headers: From: your-email@example.com
+Content-Type: text/html
+
+Message: Please click the following link to reset your password: <a href='resetPassword.php?token=225916138273651412f08d84243322db754ae3f5d09b630d12db2c40b84457e6'>Reset Password</a>
+
