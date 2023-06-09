@@ -12,6 +12,10 @@ a {
 	text-decoration: none;
 }
 
+.text-sm {
+	font-size: 0.85rem;
+}
+
 /* -------------------------------- */
 /* ---------- Sidebar ------------- */
 
@@ -26,6 +30,10 @@ a {
 
 .nav-link:hover {
 	cursor: pointer;
+}
+
+.poweredBy {
+	font-size: 0.7rem;
 }
 
 /* -------------------------------- */
