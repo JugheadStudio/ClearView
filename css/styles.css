@@ -7,10 +7,6 @@ html {
 	height: -webkit-fill-available;
 }
 
-a {
-	color: #fff !important;
-	text-decoration: none;
-}
 
 .text-sm {
 	font-size: 0.85rem;
@@ -32,6 +28,10 @@ a {
 	cursor: pointer;
 }
 
+.sidebar-container a {
+	color: #fff !important;
+	text-decoration: none;
+}
 .poweredBy {
 	font-size: 0.7rem;
 }
@@ -67,8 +67,8 @@ a {
 /* center align i  */
 .change-image-label i {
 	position: absolute;
-	top: 55%;
-	left: 50%;
+	top: 52%;
+	left: 51%;
 	transform: translate(-50%, -50%);
 }
 
