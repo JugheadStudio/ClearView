@@ -33,22 +33,74 @@
         <form action="createAppointment.php" method="POST">
           <div class="row">
             <div class="col mb-3">
-              <label for="patientID" class="form-label">Patient ID</label>
-              <input type="text" class="form-control typeahead" id="patientID" name="patientID" required>
-              <div id="patientResults"></div>
+              <label for="patientID" class="form-label">Patient</label>
+              <select class="form-control m-2" name="patientID">
+                <option value="all">All</option>
+                <?php
+                // Include the database connection file
+                include '../db.php';
+
+                // Select all records from the patients and order them by name
+                $sql = "SELECT * FROM patients ORDER BY name ASC";
+                $results = $conn->query($sql);
+
+                // Iterate through each row of the result set and create an option for each name
+                while ($row = $results->fetch_assoc()) {
+                  echo '<option value="' . $row['id'] . '">' . $row['name'] . ' ' . $row['surname'] . '</option>';
+                }
+
+                // Close the database connection
+                $conn->close();
+                ?>
+              </select>
             </div>
 
             <div class="col mb-3">
-              <label for="doctorID" class="form-label">Doctor ID</label>
-              <input type="text" class="form-control typeahead" id="doctorID" name="doctorID" required>
-              <div id="doctorResults"></div>
+              <label for="doctorID" class="form-label">Doctor</label>
+              <select class="form-control m-2" name="doctorID">
+                <option value="all">All</option>
+                <?php
+                // Include the database connection file
+                include '../db.php';
+
+                // Select all records from the doctor and order them by name
+                $sql = "SELECT * FROM doctor ORDER BY name ASC";
+                $results = $conn->query($sql);
+
+                // Iterate through each row of the result set and create an option for each name
+                while ($row = $results->fetch_assoc()) {
+                  echo '<option value="' . $row['id'] . '">' . $row['name'] . ' ' . $row['surname'] . '</option>';
+                }
+
+                // Close the database connection
+                $conn->close();
+                ?>
+              </select>
             </div>
           </div>
 
           <div class="row">
             <div class="col mb-3">
               <label for="roomID" class="form-label">Room</label>
-              <input type="text" class="form-control" id="roomID" name="roomID" required>
+              <select class="form-control m-2" name="roomID">
+                <option value="all">All</option>
+                <?php
+                // Include the database connection file
+                include '../db.php';
+
+                // Select all records from the room and order them by name
+                $sql = "SELECT * FROM room ORDER BY name ASC";
+                $results = $conn->query($sql);
+
+                // Iterate through each row of the result set and create an option for each room
+                while ($row = $results->fetch_assoc()) {
+                  echo '<option value="' . $row['id'] . '">' . $row['name'] . ' ' . $row['Building'] . '</option>';
+                }
+
+                // Close the database connection
+                $conn->close();
+                ?>
+              </select>
             </div>
           </div>
 
@@ -139,98 +191,3 @@
 
   </div>
 </div>
-
-<script>
-  $(document).ready(function() {
-    // Patient ID Typeahead
-    $('#patientID').on('input', function() {
-      let query = $(this).val();
-
-      $.ajax({
-        url: 'search.php',
-        method: 'POST',
-        data: {
-          query: query,
-          type: 'patient'
-        },
-        dataType: 'json',
-        success: function(data) {
-          let resultsContainer = $('#patientResults');
-          resultsContainer.empty();
-
-          if (data.length > 0) {
-            data.forEach(function(patient) {
-              let result = $('<div>').text(patient.name);
-              resultsContainer.append(result);
-            });
-          } else {
-            let result = $('<div>').text('No matching patients found');
-            resultsContainer.append(result);
-          }
-        }
-      });
-    });
-
-    // Doctor ID Typeahead
-    $('#doctorID').on('input', function() {
-      let query = $(this).val();
-
-      $.ajax({
-        url: 'search.php',
-        method: 'POST',
-        data: {
-          query: query,
-          type: 'doctor'
-        },
-        dataType: 'json',
-        success: function(data) {
-          let resultsContainer = $('#doctorResults');
-          resultsContainer.empty();
-
-          if (data.length > 0) {
-            data.forEach(function(doctor) {
-              let result = $('<div>').text(doctor.name);
-              resultsContainer.append(result);
-            });
-          } else {
-            let result = $('<div>').text('No matching doctors found');
-            resultsContainer.append(result);
-          }
-        }
-      });
-    });
-
-    // Add event listener to search results
-    $(document).on('click', '.search-result', function() {
-      var name = $(this).text(); // Get the clicked result's name
-      $('#search-input').val(name); // Populate the input field with the name
-    });
-
-    // Perform search on keyup event in the search input
-    $('#search-input').keyup(function() {
-      var query = $(this).val(); // Get the search query from the input field
-      var type = $('#search-type').val(); // Get the search type (patient or doctor)
-
-      // Perform an AJAX request to the search.php file
-      $.ajax({
-        url: 'search.php',
-        type: 'POST',
-        dataType: 'json',
-        data: {
-          query: query,
-          type: type
-        },
-        success: function(response) {
-          var resultsContainer = $('#search-results');
-          resultsContainer.empty(); // Clear previous results
-
-          // Loop through the response and append each result to the container
-          $.each(response, function(index, result) {
-            var resultItem = $('<div class="search-result"></div>').text(result.name);
-            resultsContainer.append(resultItem);
-          });
-        }
-      });
-    });
-  });
-</script>
