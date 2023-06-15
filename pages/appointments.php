@@ -40,11 +40,11 @@
                 // Include the database connection file
                 include '../db.php';
 
-                // Select all records from the patients and order them by name
+                // Select all records from the patients and order them alphabetically
                 $sql = "SELECT * FROM patients ORDER BY name ASC";
                 $results = $conn->query($sql);
 
-                // Iterate through each row of the result set and create an option for each name
+                // Iterate through each row of the results and create an option for each name
                 while ($row = $results->fetch_assoc()) {
                   echo '<option value="' . $row['id'] . '">' . $row['name'] . ' ' . $row['surname'] . '</option>';
                 }
@@ -63,11 +63,11 @@
                 // Include the database connection file
                 include '../db.php';
 
-                // Select all records from the doctor and order them by name
+                // Select all records from the doctor and order them alphabetically
                 $sql = "SELECT * FROM doctor ORDER BY name ASC";
                 $results = $conn->query($sql);
 
-                // Iterate through each row of the result set and create an option for each name
+                // Iterate through each row of the results and create an option for each name
                 while ($row = $results->fetch_assoc()) {
                   echo '<option value="' . $row['id'] . '">' . $row['name'] . ' ' . $row['surname'] . '</option>';
                 }
@@ -88,11 +88,11 @@
                 // Include the database connection file
                 include '../db.php';
 
-                // Select all records from the room and order them by name
+                // Select all records from the room and order them alphabetically
                 $sql = "SELECT * FROM room ORDER BY name ASC";
                 $results = $conn->query($sql);
 
-                // Iterate through each row of the result set and create an option for each room
+                // Iterate through each row of the results and create an option for each room
                 while ($row = $results->fetch_assoc()) {
                   echo '<option value="' . $row['id'] . '">' . $row['name'] . ' ' . $row['Building'] . '</option>';
                 }

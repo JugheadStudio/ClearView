@@ -5,6 +5,9 @@ ini_set('display_errors', 1);
 // Include the database connection and any required functions
 include '../db.php';
 
+// Include the SendGrid api key
+require_once('config.php');
+
 // Check if the form is submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   // Retrieve the username or email from the form
@@ -86,7 +89,7 @@ function sendPasswordResetEmail($email, $resetToken)
   $url = "https://api.sendgrid.com/v3/mail/send";
 
   // SendGrid API key
-  $apiKey = "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";
+  $apiKey = SENDGRID_API_KEY;
 
   // Compose the email data
   $emailData = [
