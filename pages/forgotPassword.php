@@ -5,8 +5,8 @@ ini_set('display_errors', 1);
 // Include the database connection and any required functions
 include '../db.php';
 
-// Include the SendGrid api key
-require_once('config.php');
+// Include the config file
+require_once('../config/config.php');
 
 // Check if the form is submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
