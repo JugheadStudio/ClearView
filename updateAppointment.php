@@ -10,6 +10,8 @@ if (!isset($_POST['id'], $_POST['patientID'], $_POST['doctorID'], $_POST['roomID
   exit;
 }
 
+$id = $_POST['id']; // Retrieve the appointment ID from the form
+
 $patientID = $_POST['patientID'];
 $doctorID = $_POST['doctorID'];
 $roomID = $_POST['roomID'];
