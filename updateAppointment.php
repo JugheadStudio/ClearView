@@ -17,7 +17,7 @@ $date = $_POST['date'];
 $time = $_POST['time'];
 
 // Prepare the SQL update statement
-$sql = "UPDATE appointment SET profilePicture=?, patientID=?, doctorID=?, roomID=?, date=?, time=? WHERE id=?";
+$sql = "UPDATE appointment SET patientID=?, doctorID=?, roomID=?, date=?, time=? WHERE id=?";
 
 // Prepare and bind the parameters
 $stmt = $conn->prepare($sql);

@@ -11,5 +11,8 @@ if ($conn->query($sql) === TRUE) {
 }
 
 $conn->close();
-header("location: index.php");
+
+// Redirect to index.php
+header("Location: index.php");
+exit();
 ?>
