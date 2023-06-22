@@ -42,7 +42,7 @@ if (isset($_FILES['profilePicture']) && $_FILES['profilePicture']['size'] > 0) {
     $stmt->fetch();
     $stmt->close();
 
-    if ($existingProfilePicture !== null && $existingProfilePicture !== 'uploads/placeholder.jpg') {
+    if ($existingProfilePicture !== null && $existingProfilePicture !== 'uploads/placeholder.png') {
       if (file_exists($existingProfilePicture)) {
         unlink($existingProfilePicture);
       }
@@ -52,7 +52,7 @@ if (isset($_FILES['profilePicture']) && $_FILES['profilePicture']['size'] > 0) {
   } else {
     // Handle the case when the file couldn't be uploaded
     // For example, you can assign a default image to the doctor
-    $profilePicture = $uploadDir . 'placeholder.jpg'; // Update with the appropriate default image name
+    $profilePicture = $uploadDir . 'placeholder.png'; // Update with the appropriate default image name
   }
 } else {
   // No new image uploaded, retrieve the existing image path from the database
