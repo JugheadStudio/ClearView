@@ -84,9 +84,19 @@ html {
 
 
 /* -------------------------------- */
-/* ------- Appointments ---------- */
+/* ----------- table -------------- */
 
-.appointment-card {
+.table>:not(caption)>*>* {
+  background-color: transparent;
+}
+
+.tbody {
+  height: calc(100vh - 38px - 48px - 48px);
+  overflow-y: scroll;
+}
+
+tr:hover {
+  background-color: #f6f6f6;
 }
 
 /* -------------------------------- */

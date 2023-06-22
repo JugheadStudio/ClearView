@@ -33,10 +33,25 @@ if (isset($_FILES['profilePicture']) && $_FILES['profilePicture']['size'] > 0) {
 
   // Move the uploaded file to the desired location
   if (move_uploaded_file($uploadedFile, $targetPath)) {
+    // Delete the previous image if it exists
+    $sql = "SELECT profilePicture FROM doctor WHERE id=?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('i', $id);
+    $stmt->execute();
+    $stmt->bind_result($existingProfilePicture);
+    $stmt->fetch();
+    $stmt->close();
+
+    if ($existingProfilePicture !== null && $existingProfilePicture !== 'uploads/placeholder.jpg') {
+      if (file_exists($existingProfilePicture)) {
+        unlink($existingProfilePicture);
+      }
+    }
+
     $profilePicture = $targetPath;
   } else {
     // Handle the case when the file couldn't be uploaded
-    // For example, you can assign a default image to the employee
+    // For example, you can assign a default image to the doctor
     $profilePicture = $uploadDir . 'placeholder.jpg'; // Update with the appropriate default image name
   }
 } else {

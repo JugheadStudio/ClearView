@@ -21,8 +21,13 @@ $rate = $_POST['rate'];
 $fileExtension = pathinfo($_FILES['profilePicture']['name'], PATHINFO_EXTENSION);
 // Generate a unique filename
 $filename = uniqid() . '.' . $fileExtension;
+
 // Set the target file path
-$targetFile = 'uploads/' . $filename;
+if ($profilePicture !== "") {
+  $targetFile = 'uploads/' . $filename;
+} else {
+  $targetFile = 'uploads/placeholder.png';
+}
 
 // Hash the password
 $hashedPassword = password_hash($password, PASSWORD_DEFAULT);

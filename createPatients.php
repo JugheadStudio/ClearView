@@ -20,39 +20,45 @@ $allergy = $_POST['allergy'];
 $emergencyContactName = $_POST['emergencyContactName'];
 $emergencyContactNumber = $_POST['emergencyContactNumber'];
 
-// Get the file extension
-$fileExtension = pathinfo($_FILES['profilePicture']['name'], PATHINFO_EXTENSION);
-// Generate a unique filename
-$filename = uniqid() . '.' . $fileExtension;
-// Set the target file path
-$targetFile = 'uploads/' . $filename;
+// Check if a file is uploaded, otherwise set the profile picture to the placeholder image
+if ($_FILES['profilePicture']['error'] === UPLOAD_ERR_OK) {
+    // Get the file extension
+    $fileExtension = pathinfo($_FILES['profilePicture']['name'], PATHINFO_EXTENSION);
+    // Generate a unique filename
+    $filename = uniqid() . '.' . $fileExtension;
+    // Set the target file path
+    $targetFile = 'uploads/' . $filename;
+} else {
+    // Set the profile picture to the placeholder image
+    $targetFile = 'uploads/placeholder.png';
+}
 
 $sql = "INSERT INTO `patients`(`profilePicture`, `name`, `surname`, `dateOfBirth`, `gender`, `phoneNumber`, `email`, `address`, `medicalAid`, `medicalAidNumber`, `bloodType`, `allergy`, `EmergencyContactName`, `EmergencyContactNumber`) VALUES ('$targetFile', '$name', '$surname', '$dateOfBirth', '$gender', '$phoneNumber', '$email', '$address', '$medicalAid', '$medicalAidNumber', '$bloodType', '$allergy', '$emergencyContactName', '$emergencyContactNumber')";
 
 if ($conn->query($sql) === TRUE) {
-	echo 'Data inserted successfully';
+    echo 'Data inserted successfully';
 } else {
-	echo 'Error inserting data: ' . $conn->error;
+    echo 'Error inserting data: ' . $conn->error;
 }
 
 $conn->close();
 
 // Handle file upload
 if (isset($_FILES['profilePicture']) && $_FILES['profilePicture']['error'] === UPLOAD_ERR_OK) {
-	$tempFile = $_FILES['profilePicture']['tmp_name'];
+    $tempFile = $_FILES['profilePicture']['tmp_name'];
 
-	// Move the uploaded file to the desired location
-	if (move_uploaded_file($tempFile, $targetFile)) {
-		// File upload success
-		echo "File uploaded successfully.";
-		// Perform further processing or database storage here
-	} else {
-		// File upload failed
-		echo "File upload failed.";
-	}
+    // Move the uploaded file to the desired location
+    if (move_uploaded_file($tempFile, $targetFile)) {
+        // File upload success
+        echo "File uploaded successfully.";
+        // Perform further processing or database storage here
+    } else {
+        // File upload failed
+        echo "File upload failed.";
+    }
 } else {
-	// No file uploaded or upload error occurred
-	echo "No file uploaded or upload error occurred.";
+    // No file uploaded or upload error occurred
+    echo "No file uploaded or upload error occurred.";
 }
 
 // Redirect to index.php

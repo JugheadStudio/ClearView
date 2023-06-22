@@ -23,7 +23,7 @@ include '../db.php';
 	</tr>
 	<?php
 	// Select all records from the patients table
-	$sql = "SELECT * FROM patients";
+	$sql = "SELECT * FROM patients ORDER BY name ASC";
 	$results = $conn->query($sql);
 
 	// Check if there are any records
@@ -198,7 +198,7 @@ while ($row = $results->fetch_assoc()) {
 								<img src="#" alt="" width="150" height="150" class="rounded-circle me-2" id="previewImage">
 								<label for="profilePicture" class="change-image-label">
 									<i class="fa fa-camera"></i>
-									<input class="form-control" type="file" id="profilePicture" name="profilePicture" accept="image/*" required>
+									<input class="form-control" type="file" id="profilePicture" name="profilePicture" accept="image/*">
 								</label>
 							</div>
 						</div>
