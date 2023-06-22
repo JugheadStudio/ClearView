@@ -13,39 +13,42 @@ include '../db.php';
   </div>
 </div>
 
-<table class='table'>
-  <tr>
-    <th></th>
-    <th>ID</th>
-    <th>Name</th>
-    <th>Surname</th>
-    <th>Actions</th>
-  </tr>
-  <?php
-  // Select all records from the doctor table
-  $sql = "SELECT * FROM doctor ORDER BY name ASC";
-  $results = $conn->query($sql);
+<div class="table-container">
+  <table class='table'>
+    <tr>
+      <th></th>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Surname</th>
+      <th>Actions</th>
+    </tr>
+    <?php
+    // Select all records from the doctor table
+    $sql = "SELECT * FROM doctor ORDER BY name ASC";
+    $results = $conn->query($sql);
 
-  // Check if there are any records
-  if ($results->num_rows > 0) {
-    while ($row = $results->fetch_assoc()) {
-  ?>
-      <tr id="row-<?php echo $row['id']; ?>">
-        <td><img src='<?php echo $row['profilePicture']; ?>' alt='' width='50' height='50' class='rounded-circle me-2'></td>
-        <td><?php echo $row['id']; ?></td>
-        <td><?php echo $row['name']; ?></td>
-        <td><?php echo $row['surname']; ?></td>
-        <td>
-          <button class='btn btn-primary' data-entry-id='<?php echo $row['id']; ?>' data-bs-toggle='modal' data-bs-target='#viewEntry<?php echo $row['id']; ?>'>View</button>
-        </td>
-      </tr>
-  <?php
+    // Check if there are any records
+    if ($results->num_rows > 0) {
+      while ($row = $results->fetch_assoc()) {
+    ?>
+        <tr id="row-<?php echo $row['id']; ?>">
+          <td><img src='<?php echo $row['profilePicture']; ?>' alt='' width='50' height='50' class='rounded-circle me-2'></td>
+          <td><?php echo $row['id']; ?></td>
+          <td><?php echo $row['name']; ?></td>
+          <td><?php echo $row['surname']; ?></td>
+          <td>
+            <button class='btn btn-primary' data-entry-id='<?php echo $row['id']; ?>' data-bs-toggle='modal' data-bs-target='#viewEntry<?php echo $row['id']; ?>'>View</button>
+          </td>
+        </tr>
+    <?php
+      }
+    } else {
+      echo "No records found";
     }
-  } else {
-    echo "No records found";
-  }
-  ?>
-</table>
+    ?>
+  </table>
+</div>
+
 
 <?php
 $results->data_seek(0); // Reset the result pointer

@@ -90,8 +90,8 @@ html {
   background-color: transparent;
 }
 
-.tbody {
-  height: calc(100vh - 38px - 48px - 48px);
+.table-container {
+  height: calc(100vh - 38px - 48px - 40px);
   overflow-y: scroll;
 }
 

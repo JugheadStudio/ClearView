@@ -86,20 +86,22 @@ $(document).ready(function() {
 
 });
 
-function loadContent(page) {
-	// Remove single quotes from the page name
-	page = page.replace(/'/g, '');
+function loadContent(page, pageNumber = 1) {
+  // Remove single quotes from the page name
+  page = page.replace(/'/g, '');
 
-	// Store the active page in session storage
-	sessionStorage.setItem('activePage', page);
+  // Store the active page and page number in session storage
+  sessionStorage.setItem('activePage', page);
+  sessionStorage.setItem('currentPage', pageNumber);
 
-	$.get('pages/' + page + '.php', function(response) {
-		$('#content').html(response);
-	});
+  $.get('pages/' + page + '.php?page=' + pageNumber, function(response) {
+    $('#content').html(response);
+  });
 
-	// Clear the active class from all nav links
-	$('.nav-link').removeClass('active');
+  // Clear the active class from all nav links
+  $('.nav-link').removeClass('active');
 
-	// Add the active class to the current nav link
-	$('#' + page + 'Link').addClass('active');
+  // Add the active class to the current nav link
+  $('#' + page + 'Link').addClass('active');
 }
+
