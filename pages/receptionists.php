@@ -49,6 +49,7 @@ include '../db.php';
   </table>
 </div>
 
+<!-- Add receptionist modal -->
 <?php
 $results->data_seek(0); // Reset the result pointer
 while ($row = $results->fetch_assoc()) {
@@ -74,7 +75,6 @@ while ($row = $results->fetch_assoc()) {
                   </label>
                 </div>
               </div>
-
 
               <div class="col">
                 <label for='username<?php echo $row['id']; ?>' class='form-label'>User Name</label>
@@ -224,7 +224,10 @@ while ($row = $results->fetch_assoc()) {
           <div class='row mb-3'>
             <div class='col-md-6'>
               <label for='rank' class='form-label'>Rank</label>
-              <input type='text' class='form-control' id='rank' name='rank' required>
+                <select class="form-select" id="rank" name="rank">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                </select>
             </div>
           </div>
 

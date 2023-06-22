@@ -123,14 +123,53 @@ while ($row = $results->fetch_assoc()) {
 
             <div class='row mb-3'>
               <div class="col-6">
+
                 <label for='roomID<?php echo $row['id']; ?>' class='form-label'>Room</label>
-                <input type='text' class='form-control isEditing' id='roomID<?php echo $row['id']; ?>' name='roomID' value='<?php echo $row['roomID']; ?>'>
+                <select class='form-select isEditing' id='roomID<?php echo $row['id']; ?>' name='roomID'>
+                  <?php
+                  // Select all records from the room table and order them alphabetically
+                  $sql = "SELECT * FROM room ORDER BY name ASC";
+                  $roomResults = $conn->query($sql);
+
+                  // Check if there are any rows returned from the query
+                  if ($roomResults && $roomResults->num_rows > 0) {
+                    while ($room = $roomResults->fetch_assoc()) {
+                      // Create an option for each room
+                      $selected = ($row['roomID'] == $room['id']) ? 'selected' : '';
+                      echo "<option value='" . $room['id'] . "' " . $selected . ">" . $room['name'] . " " . $room['Building'] . "</option>";
+                    }
+                  }
+                  ?>
+                </select>
               </div>
 
               <div class="col-6">
-                <label for='discipline<?php echo $row['id']; ?>' class='form-label'>Discipline</label>
-                <input type='text' class='form-control isEditing' id='discipline<?php echo $row['id']; ?>' name='discipline' value='<?php echo $row['discipline']; ?>'>
+                <label for="discipline<?php echo $row['id']; ?>" class="form-label">Discipline</label>
+                <select class="form-select isEditing" id="discipline<?php echo $row['id']; ?>" name="discipline">
+                  <option value="">Select a discipline</option>
+                  <option value="Allergist" <?php if ($row['discipline'] == 'Allergist') echo 'selected'; ?>>Allergist</option>
+                  <option value="Cardiologist" <?php if ($row['discipline'] == 'Cardiologist') echo 'selected'; ?>>Cardiologist</option>
+                  <option value="Chiropractor" <?php if ($row['discipline'] == 'Chiropractor') echo 'selected'; ?>>Chiropractor</option>
+                  <option value="Dentist" <?php if ($row['discipline'] == 'Dentist') echo 'selected'; ?>>Dentist</option>
+                  <option value="Dermatologist" <?php if ($row['discipline'] == 'Dermatologist') echo 'selected'; ?>>Dermatologist</option>
+                  <option value="ENT Specialist" <?php if ($row['discipline'] == 'ENT Specialist') echo 'selected'; ?>>ENT Specialist</option>
+                  <option value="Endocrinologist" <?php if ($row['discipline'] == 'Endocrinologist') echo 'selected'; ?>>Endocrinologist</option>
+                  <option value="Gastroenterologist" <?php if ($row['discipline'] == 'Gastroenterologist') echo 'selected'; ?>>Gastroenterologist</option>
+                  <option value="General Practitioner" <?php if ($row['discipline'] == 'General Practitioner') echo 'selected'; ?>>General Practitioner</option>
+                  <option value="Gynecologist" <?php if ($row['discipline'] == 'Gynecologist') echo 'selected'; ?>>Gynecologist</option>
+                  <option value="Neurologist" <?php if ($row['discipline'] == 'Neurologist') echo 'selected'; ?>>Neurologist</option>
+                  <option value="Oncologist" <?php if ($row['discipline'] == 'Oncologist') echo 'selected'; ?>>Oncologist</option>
+                  <option value="Ophthalmologist" <?php if ($row['discipline'] == 'Ophthalmologist') echo 'selected'; ?>>Ophthalmologist</option>
+                  <option value="Orthopedic Surgeon" <?php if ($row['discipline'] == 'Orthopedic Surgeon') echo 'selected'; ?>>Orthopedic Surgeon</option>
+                  <option value="Pediatrician" <?php if ($row['discipline'] == 'Pediatrician') echo 'selected'; ?>>Pediatrician</option>
+                  <option value="Physical Therapist" <?php if ($row['discipline'] == 'Physical Therapist') echo 'selected'; ?>>Physical Therapist</option>
+                  <option value="Psychiatrist" <?php if ($row['discipline'] == 'Psychiatrist') echo 'selected'; ?>>Psychiatrist</option>
+                  <option value="Pulmonologist" <?php if ($row['discipline'] == 'Pulmonologist') echo 'selected'; ?>>Pulmonologist</option>
+                  <option value="Rheumatologist" <?php if ($row['discipline'] == 'Rheumatologist') echo 'selected'; ?>>Rheumatologist</option>
+                  <option value="Urologist" <?php if ($row['discipline'] == 'Urologist') echo 'selected'; ?>>Urologist</option>
+                </select>
               </div>
+
             </div>
 
             <div class='row mb-3'>
@@ -237,14 +276,52 @@ while ($row = $results->fetch_assoc()) {
 
           <div class='row mb-3'>
             <div class='col-md-6'>
-              <label for='roomID' class='form-label'>Room</label>
-              <input type='text' class='form-control' id='roomID' name='roomID' required>
+              <label for="roomID" class="form-label">Room</label>
+              <select class="form-select" name="roomID" id="roomID">
+                <option value="all">All</option>
+                <?php
+                // Select all records from the room and order them alphabetically
+                $sql = "SELECT * FROM room ORDER BY name ASC";
+                $results = $conn->query($sql);
+
+                // Iterate through each row of the results and create an option for each room
+                while ($row = $results->fetch_assoc()) {
+                  echo '<option value="' . $row['id'] . '">' . $row['name'] . ' ' . $row['Building'] . '</option>';
+                }
+
+                // Close the database connection
+                $conn->close();
+                ?>
+              </select>
             </div>
 
             <div class='col-md-6'>
-              <label for='discipline' class='form-label'>discipline</label>
-              <input type='text' class='form-control' id='discipline' name='discipline' required>
+              <label for='discipline' class='form-label'>Discipline</label>
+              <select class='form-select' id='discipline' name='discipline' required>
+                <option value=''>Select a discipline</option>
+                <option value='Allergist'>Allergist</option>
+                <option value='Cardiologist'>Cardiologist</option>
+                <option value='Chiropractor'>Chiropractor</option>
+                <option value='Dentist'>Dentist</option>
+                <option value='Dermatologist'>Dermatologist</option>
+                <option value='ENT Specialist'>ENT Specialist</option>
+                <option value='Endocrinologist'>Endocrinologist</option>
+                <option value='Gastroenterologist'>Gastroenterologist</option>
+                <option value='General Practitioner'>General Practitioner</option>
+                <option value='Gynecologist'>Gynecologist</option>
+                <option value='Neurologist'>Neurologist</option>
+                <option value='Oncologist'>Oncologist</option>
+                <option value='Ophthalmologist'>Ophthalmologist</option>
+                <option value='Orthopedic Surgeon'>Orthopedic Surgeon</option>
+                <option value='Pediatrician'>Pediatrician</option>
+                <option value='Physical Therapist'>Physical Therapist</option>
+                <option value='Psychiatrist'>Psychiatrist</option>
+                <option value='Pulmonologist'>Pulmonologist</option>
+                <option value='Rheumatologist'>Rheumatologist</option>
+                <option value='Urologist'>Urologist</option>
+              </select>
             </div>
+
           </div>
 
           <div class='row mb-3'>
