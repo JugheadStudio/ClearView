@@ -117,11 +117,22 @@ $conn->close();
               <input type="password" id="password" name="password" class="form-control mb-3" required>
               <a href="forgotPassword.php" class="forgot-password">Forgot password</a>
             </div>
-            <button type="submit" class="btn btn-primary mb-3">Login</button>
+            <div class="text-center">
+              <button type="submit" class="btn btn-primary mb-3">Login</button>
+            </div>
           </form>
         </div>
       </div>
     </div>
+  </div>
+  <div class="jughead-footer mb-3">
+    <p>Powered by <strong>Jughead Studios</strong></p>
+    <p class="social-links mb-2">
+      <a href="https://twitter.com/JUGZSOL" target="_blank"><i class="fa-brands fa-twitter"></i></a>
+      <a href="https://github.com/JugheadStudio" target="_blank"><i class="fa-brands fa-github"></i></a>
+      <a href="https://www.linkedin.com/in/ruanjordaan/" target="_blank"><i class="fa-brands fa-linkedin-in"></i></a>
+      <a href="https://www.instagram.com/jugz.sol/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+    </p>
   </div>
 </body>
 

@@ -119,13 +119,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <form method="POST" action="resetPassword.php?token=<?php echo $resetToken; ?>">
               <label for="newPassword">New Password</label>
               <input type="password" id="newPassword" name="newPassword" class="form-control mb-3" required>
-              <button type="submit" class="btn btn-primary">Reset Password</button>
+              
+              <div class="text-center">
+                <button type="submit" class="btn btn-primary">Reset Password</button>
+                <a href="login.php" class="btn btn-primary">Back to login</a>
+              </div>
             </form>
           <?php endif; ?>
 
         </div>
       </div>
     </div>
+  </div>
+  <div class="jughead-footer mb-3">
+    <p>Powered by <strong>Jughead Studios</strong></p>
+    <p class="social-links mb-2">
+      <a href="https://twitter.com/JUGZSOL" target="_blank"><i class="fa-brands fa-twitter"></i></a>
+      <a href="https://github.com/JugheadStudio" target="_blank"><i class="fa-brands fa-github"></i></a>
+      <a href="https://www.linkedin.com/in/ruanjordaan/" target="_blank"><i class="fa-brands fa-linkedin-in"></i></a>
+      <a href="https://www.instagram.com/jugz.sol/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+    </p>
   </div>
 </body>
 

@@ -423,6 +423,7 @@ tbody tr:hover {
   padding: 0 25px 25px 25px;
   border-radius: 15px;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.4);
+  position: relative;
 }
 
 .forgot-password {
@@ -439,4 +440,12 @@ tbody tr:hover {
 .login-logo {
   width: 50%;
   margin: 50px auto;
+}
+
+.jughead-footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  color: var(--Dark);
 }
