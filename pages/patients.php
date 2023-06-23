@@ -7,21 +7,36 @@ session_start();
 include '../db.php';
 ?>
 
-<div class="row mt-5 mb-3">
-  <div class="col text-end">
-    <button class='btn btn-primary save-changes' data-bs-toggle='modal' data-bs-target='#addPatientModal'>Add Patient</button>
+<div class="container-fluid">
+  <div class="row mt-5 mb-3 page-header">
+    <div class="col text-start">
+      <h3>Patients</h3>
+    </div>
+
+    <div class="col text-end">
+      <button class='btn btn-primary save-changes' data-bs-toggle='modal' data-bs-target='#addPatientModal'><i class="fa-solid fa-user-plus m-0"></i></button>
+    </div>
   </div>
 </div>
 
+<hr>
+
 <div class="table-container">
   <table class='table'>
-    <tr>
-      <th></th>
-      <th>ID</th>
-      <th>Name</th>
-      <th>Surname</th>
-      <th>Actions</th>
-    </tr>
+    <thead>
+      <tr style="text-align: center;">
+        <th></th>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Date of Birth</th>
+        <th>Email</th>
+        <th>Contact Number</th>
+        <th>Medical Aid</th>
+        <th>Blood Type</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
     <?php
     // Select all records from the patients table
     $sql = "SELECT * FROM patients ORDER BY name ASC";
@@ -31,15 +46,22 @@ include '../db.php';
     if ($results->num_rows > 0) {
       while ($row = $results->fetch_assoc()) {
     ?>
-        <tr id="row-<?php echo $row['id']; ?>">
-          <td><img src='<?php echo $row['profilePicture']; ?>' alt='' width='50' height='50' class='rounded-circle me-2'></td>
-          <td><?php echo $row['id']; ?></td>
-          <td><?php echo $row['name']; ?></td>
-          <td><?php echo $row['surname']; ?></td>
-          <td>
-            <button class='btn btn-primary' data-entry-id='<?php echo $row['id']; ?>' data-bs-toggle='modal' data-bs-target='#viewEntry<?php echo $row['id']; ?>'>View</button>
-          </td>
-        </tr>
+        <tbody>
+          <tr id="row-<?php echo $row['id']; ?>" style="text-align: center;">
+            <td style="vertical-align: middle;"><img src='<?php echo $row['profilePicture']; ?>' alt='<?php echo $row['name'] . ' ' . $row['surname'] . ' profile picture'; ?>' class='rounded-circle me-2 entry-profile-image'></td>
+            <td style="vertical-align: middle;"><?php echo $row['id']; ?></td>
+            <td style="vertical-align: middle;"><?php echo $row['name']; ?></td>
+            <td style="vertical-align: middle;"><?php echo $row['surname']; ?></td>
+            <td style="vertical-align: middle;"><?php echo $row['dateOfBirth']; ?></td>
+            <td style="vertical-align: middle;"><?php echo $row['email']; ?></td>
+            <td style="vertical-align: middle;"><?php echo $row['phoneNumber']; ?></td>
+            <td style="vertical-align: middle;"><?php echo $row['medicalAid']; ?></td>
+            <td style="vertical-align: middle;"><?php echo $row['bloodType']; ?></td>
+            <td style="vertical-align: middle;">
+              <button class='btn btn-primary' data-entry-id='<?php echo $row['id']; ?>' data-bs-toggle='modal' data-bs-target='#viewEntry<?php echo $row['id']; ?>'>View</button>
+            </td>
+          </tr>
+        </tbody>
     <?php
       }
     } else {
@@ -80,7 +102,7 @@ while ($row = $results->fetch_assoc()) {
 
               <div class="col">
                 <label for='name<?php echo $row['id']; ?>' class='form-label'>Name</label>
-                <input type='text' class='form-control isEditing' id='name<?php echo $row['id']; ?>' name='name' value='<?php echo $row['name']; ?>' disabled>
+                <input type='text' class='form-control isEditing mb-3' id='name<?php echo $row['id']; ?>' name='name' value='<?php echo $row['name']; ?>' disabled>
 
                 <label for="gender<?php echo $row['id']; ?>" class="form-label">Gender</label>
                 <select class="form-select isEditing" id="gender<?php echo $row['id']; ?>" name="gender" disabled>
@@ -92,7 +114,7 @@ while ($row = $results->fetch_assoc()) {
 
               <div class="col">
                 <label for='surname<?php echo $row['id']; ?>' class='form-label'>Surname</label>
-                <input type='text' class='form-control isEditing' id='surname<?php echo $row['id']; ?>' name='surname' value='<?php echo $row['surname']; ?>' disabled>
+                <input type='text' class='form-control isEditing mb-3' id='surname<?php echo $row['id']; ?>' name='surname' value='<?php echo $row['surname']; ?>' disabled>
 
                 <label for='dateOfBirth<?php echo $row['id']; ?>' class='form-label'>Date of Birth</label>
                 <input type='date' class='form-control isEditing' id='dateOfBirth<?php echo $row['id']; ?>' name='dateOfBirth' value='<?php echo $row['dateOfBirth']; ?>' disabled>
@@ -149,19 +171,13 @@ while ($row = $results->fetch_assoc()) {
             </div>
 
             <div class='row mb-3'>
-              <div class="col">
-                <h5>Emergency Contact</h5>
-              </div>
-            </div>
-
-            <div class='row mb-3'>
               <div class="col-6">
-                <label for='emergencyContactName<?php echo $row['id']; ?>' class='form-label'>Name</label>
+                <label for='emergencyContactName<?php echo $row['id']; ?>' class='form-label'>Emergency Contact Name</label>
                 <input type='text' class='form-control isEditing' id='emergencyContactName<?php echo $row['id']; ?>' name='emergencyContactName' value='<?php echo $row['emergencyContactName']; ?>' disabled>
               </div>
 
               <div class="col-6">
-                <label for='emergencyContactNumber<?php echo $row['id']; ?>' class='form-label'>Number</label>
+                <label for='emergencyContactNumber<?php echo $row['id']; ?>' class='form-label'>Emergency Contact Number</label>
                 <input type='text' class='form-control isEditing' id='emergencyContactNumber<?php echo $row['id']; ?>' name='emergencyContactNumber' value='<?php echo $row['emergencyContactNumber']; ?>' disabled>
               </div>
             </div>
@@ -282,11 +298,15 @@ while ($row = $results->fetch_assoc()) {
               <input type='text' class='form-control' id='emergencyContactNumber' name='emergencyContactNumber' required>
             </div>
           </div>
-          <button type='submit' class='btn btn-primary'>Save</button>
+
+          <div class="row">
+            <div class="col text-end mt-3 mb-3">
+              <button type='submit' class='btn btn-primary'>Save</button>
+              <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Close</button>
+            </div>
+          </div>
+
         </form>
-      </div>
-      <div class='modal-footer'>
-        <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Close</button>
       </div>
     </div>
   </div>

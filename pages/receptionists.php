@@ -7,21 +7,35 @@ session_start();
 include '../db.php';
 ?>
 
-<div class="row mt-5 mb-3">
-  <div class="col text-end">
-    <button class='btn btn-primary save-changes' data-bs-toggle='modal' data-bs-target='#addReceptionistModal'>Add Receptionist</button>
+<div class="container-fluid">
+  <div class="row mt-5 mb-3 page-header">
+    <div class="col text-start">
+      <h3>Receptionist</h3>
+    </div>
+
+    <div class="col text-end">
+      <button class='btn btn-primary save-changes' data-bs-toggle='modal' data-bs-target='#addReceptionistModal'><i class="fa-solid fa-user-plus m-0"></i></button>
+    </div>
   </div>
 </div>
 
+<hr>
+
 <div class="table-container">
-  <table class='table'>
-    <tr>
-      <th></th>
-      <th>ID</th>
-      <th>Name</th>
-      <th>Surname</th>
-      <th>Actions</th>
-    </tr>
+  <table class='table' width="100%">
+    <thead>
+      <tr style="text-align: center;">
+        <th></th>
+        <th>ID</th>
+        <th>Rank</th>
+        <th>Username</th>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Email</th>
+        <th>Contact Number</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
     <?php
     // Select all records from the receptionist table
     $sql = "SELECT * FROM receptionist ORDER BY name ASC";
@@ -31,15 +45,21 @@ include '../db.php';
     if ($results->num_rows > 0) {
       while ($row = $results->fetch_assoc()) {
     ?>
-        <tr id="row-<?php echo $row['id']; ?>">
-          <td><img src='<?php echo $row['profilePicture']; ?>' alt='' width='50' height='50' class='rounded-circle me-2'></td>
-          <td><?php echo $row['id']; ?></td>
-          <td><?php echo $row['name']; ?></td>
-          <td><?php echo $row['surname']; ?></td>
-          <td>
-            <button class='btn btn-primary' data-entry-id='<?php echo $row['id']; ?>' data-bs-toggle='modal' data-bs-target='#viewEntry<?php echo $row['id']; ?>'>View</button>
-          </td>
-        </tr>
+        <tbody>
+          <tr id="row-<?php echo $row['id']; ?>" style="text-align: center;">
+            <td style="vertical-align: middle;"><img src='<?php echo $row['profilePicture']; ?>' alt='<?php echo $row['name'] . ' ' . $row['surname'] . ' profile picture'; ?>' class='rounded-circle me-2 entry-profile-image'></td>
+            <td style="vertical-align: middle;"><?php echo $row['id']; ?></td>
+            <td style="vertical-align: middle;"><?php echo $row['rank']; ?></td>
+            <td style="vertical-align: middle;"><?php echo $row['username']; ?></td>
+            <td style="vertical-align: middle;"><?php echo $row['name']; ?></td>
+            <td style="vertical-align: middle;"><?php echo $row['surname']; ?></td>
+            <td style="vertical-align: middle;"><?php echo $row['email']; ?></td>
+            <td style="vertical-align: middle;"><?php echo $row['phoneNumber']; ?></td>
+            <td style="vertical-align: middle;">
+              <button class='btn btn-primary' data-entry-id='<?php echo $row['id']; ?>' data-bs-toggle='modal' data-bs-target='#viewEntry<?php echo $row['id']; ?>'>View</button>
+            </td>
+          </tr>
+        </tbody>
     <?php
       }
     } else {
@@ -57,11 +77,15 @@ while ($row = $results->fetch_assoc()) {
   <div class='modal fade' id='viewEntry<?php echo $row['id']; ?>' tabindex='-1' aria-labelledby='viewEntryLabel' aria-hidden='true'>
     <div class='modal-dialog modal-lg'>
       <div class='modal-content'>
-        <div class='modal-header'>
-          <h5 class='modal-title' id='viewEntryLabel'>Edit Entry</h5>
-          <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
-        </div>
+
         <div class='modal-body'>
+
+          <div class='row mb-3'>
+            <div class='col text-end'>
+              <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
+            </div>
+          </div>
+
           <form action="updateReceptionists.php" method="POST" enctype="multipart/form-data">
             <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
 
@@ -224,15 +248,19 @@ while ($row = $results->fetch_assoc()) {
           <div class='row mb-3'>
             <div class='col-md-6'>
               <label for='rank' class='form-label'>Rank</label>
-                <select class="form-select" id="rank" name="rank">
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                </select>
+              <select class="form-select" id="rank" name="rank">
+                <option value="1">1</option>
+                <option value="2">2</option>
+              </select>
             </div>
           </div>
 
-          <button type='submit' class='btn btn-primary'>Save</button>
-          <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Close</button>
+          <div class="row">
+            <div class="col text-end mt-3 mb-3">
+              <button type='submit' class='btn btn-primary'>Save</button>
+              <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Close</button>
+            </div>
+          </div>
 
         </form>
       </div>

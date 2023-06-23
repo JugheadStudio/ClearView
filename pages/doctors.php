@@ -7,21 +7,38 @@ session_start();
 include '../db.php';
 ?>
 
-<div class="row mt-5 mb-3">
-  <div class="col text-end">
-    <button class='btn btn-primary save-changes' data-bs-toggle='modal' data-bs-target='#addDoctorModal'>Add Doctor</button>
+<div class="container-fluid">
+  <div class="row mt-5 mb-3 page-header">
+    <div class="col text-start">
+      <h3>Doctors</h3>
+    </div>
+
+    <div class="col text-end">
+      <?php if ($_SESSION['rank'] == 1) : ?>
+        <button class='btn btn-primary save-changes' data-bs-toggle='modal' data-bs-target='#addDoctorModal'><i class="fa-solid fa-user-plus m-0"></i></button>
+      <?php endif; ?>
+    </div>
   </div>
 </div>
 
+<hr>
+
 <div class="table-container">
   <table class='table'>
-    <tr>
-      <th></th>
-      <th>ID</th>
-      <th>Name</th>
-      <th>Surname</th>
-      <th>Actions</th>
-    </tr>
+    <thead>
+      <tr style="text-align: center;">
+        <th></th>
+        <th>ID</th>
+        <th>Username</th>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Email</th>
+        <th>Contact Number</th>
+        <th>Rate</th>
+        <th>Discipline</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
     <?php
     // Select all records from the doctor table
     $sql = "SELECT * FROM doctor ORDER BY name ASC";
@@ -31,15 +48,22 @@ include '../db.php';
     if ($results->num_rows > 0) {
       while ($row = $results->fetch_assoc()) {
     ?>
-        <tr id="row-<?php echo $row['id']; ?>">
-          <td><img src='<?php echo $row['profilePicture']; ?>' alt='' width='50' height='50' class='rounded-circle me-2'></td>
-          <td><?php echo $row['id']; ?></td>
-          <td><?php echo $row['name']; ?></td>
-          <td><?php echo $row['surname']; ?></td>
-          <td>
-            <button class='btn btn-primary' data-entry-id='<?php echo $row['id']; ?>' data-bs-toggle='modal' data-bs-target='#viewEntry<?php echo $row['id']; ?>'>View</button>
-          </td>
-        </tr>
+        <tbody>
+          <tr id="row-<?php echo $row['id']; ?>" style="text-align: center;">
+            <td style="vertical-align: middle;"><img src='<?php echo $row['profilePicture']; ?>' alt='<?php echo $row['name'] . ' ' . $row['surname'] . ' profile picture'; ?>' class='rounded-circle me-2 entry-profile-image'></td>
+            <td style="vertical-align: middle;"><?php echo $row['id']; ?></td>
+            <td style="vertical-align: middle;"><?php echo $row['username']; ?></td>
+            <td style="vertical-align: middle;"><?php echo $row['name']; ?></td>
+            <td style="vertical-align: middle;"><?php echo $row['surname']; ?></td>
+            <td style="vertical-align: middle;"><?php echo $row['email']; ?></td>
+            <td style="vertical-align: middle;"><?php echo $row['phoneNumber']; ?></td>
+            <td style="vertical-align: middle;">R <?php echo $row['rate']; ?>.00</td>
+            <td style="vertical-align: middle;"><?php echo $row['discipline']; ?></td>
+            <td style="vertical-align: middle;">
+              <button class='btn btn-primary' data-entry-id='<?php echo $row['id']; ?>' data-bs-toggle='modal' data-bs-target='#viewEntry<?php echo $row['id']; ?>'>View</button>
+            </td>
+          </tr>
+        </tbody>
     <?php
       }
     } else {
@@ -57,11 +81,15 @@ while ($row = $results->fetch_assoc()) {
   <div class='modal fade' id='viewEntry<?php echo $row['id']; ?>' tabindex='-1' aria-labelledby='viewEntryLabel' aria-hidden='true'>
     <div class='modal-dialog modal-lg'>
       <div class='modal-content'>
-        <div class='modal-header'>
-          <h5 class='modal-title' id='viewEntryLabel'>Edit Doctor</h5>
-          <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
-        </div>
+
         <div class='modal-body'>
+
+          <div class='row mb-3'>
+            <div class='col text-end'>
+              <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
+            </div>
+          </div>
+
           <form action="updateDoctors.php" method="POST" enctype="multipart/form-data">
             <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
 
@@ -78,7 +106,7 @@ while ($row = $results->fetch_assoc()) {
 
               <div class="col">
                 <label for='username<?php echo $row['id']; ?>' class='form-label'>User Name</label>
-                <input type='text' class='form-control isEditing' id='username<?php echo $row['id']; ?>' name='username' value='<?php echo $row['username']; ?>'>
+                <input type='text' class='form-control isEditing mb-3' id='username<?php echo $row['id']; ?>' name='username' value='<?php echo $row['username']; ?>'>
 
                 <label for='name<?php echo $row['id']; ?>' class='form-label'>Name</label>
                 <input type='text' class='form-control isEditing' id='name<?php echo $row['id']; ?>' name='name' value='<?php echo $row['name']; ?>'>
@@ -86,7 +114,7 @@ while ($row = $results->fetch_assoc()) {
 
               <div class="col">
                 <label for='password<?php echo $row['id']; ?>' class='form-label'>Password</label>
-                <input type='password' class='form-control isEditing' id='password<?php echo $row['id']; ?>' name='password' value='<?php echo $row['password']; ?>'>
+                <input type='password' class='form-control isEditing mb-3' id='password<?php echo $row['id']; ?>' name='password' value='<?php echo $row['password']; ?>'>
 
                 <label for='surname<?php echo $row['id']; ?>' class='form-label'>Surname</label>
                 <input type='text' class='form-control isEditing' id='surname<?php echo $row['id']; ?>' name='surname' value='<?php echo $row['surname']; ?>'>

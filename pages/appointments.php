@@ -44,26 +44,25 @@ function generateTimeOptions($selectedTime)
   return $timeOptions;
 }
 ?>
+<div class="container-fluid">
+  <div class="row pt-5">
 
-<div class="row pt-5">
-  <div class="col"></div>
+    <div class="col text-start">
+      <h3>Appointments</h3>
+    </div>
 
-  <div class="col d-flex justify-content-center">
-    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-      <li class="nav-item" role="presentation">
-        <button class="nav-link active" id="daily-tab" data-bs-toggle="pill" data-bs-target="#daily" type="button" role="tab" aria-controls="daily" aria-selected="true">Daily</button>
-      </li>
-      <li class="nav-item" role="presentation">
-        <button class="nav-link" id="weekly-tab" data-bs-toggle="pill" data-bs-target="#weekly" type="button" role="tab" aria-controls="weekly" aria-selected="false">Weekly</button>
-      </li>
-    </ul>
-  </div>
+    <div class="col d-flex justify-content-center">
+      <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+        <li class="nav-item calendar" role="presentation">
+          <button class="nav-link active" id="daily-tab" data-bs-toggle="pill" data-bs-target="#daily" type="button" role="tab" aria-controls="daily" aria-selected="true">Daily</button>
+        </li>
+        <li class="nav-item calendar" role="presentation">
+          <button class="nav-link" id="weekly-tab" data-bs-toggle="pill" data-bs-target="#weekly" type="button" role="tab" aria-controls="weekly" aria-selected="false">Weekly</button>
+        </li>
+      </ul>
+    </div>
 
-  <div class="col">
-    <div class="d-flex justify-content-end">
-      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addAppointmentModal">
-        Add Appointment
-      </button>
+    <div class="col">
     </div>
   </div>
 </div>
@@ -73,12 +72,14 @@ function generateTimeOptions($selectedTime)
 <div class="tab-content container-fluid" id="pills-tabContent">
 
   <div class="tab-pane fade show active" id="daily" role="tabpanel" aria-labelledby="daily-tab" tabindex="0">
-    <div class="row justify-content-center mt-5 mb-5">
+    <div class="row justify-content-center text-center mt-5 mb-5">
       <div class="col-4">
         <div class="input-group mb-3">
           <input type="date" class="form-control" id="dateInput" placeholder="Date" aria-label="Date" aria-describedby="basic-addon2">
           <span class="input-group-text" id="basic-addon2">Search</span>
         </div>
+
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addAppointmentModal"><i class="fa-solid fa-plus"></i>Add Appointment</button>
       </div>
     </div>
 
@@ -108,7 +109,7 @@ function generateTimeOptions($selectedTime)
               <div class="card-body">
                 <h5 class="card-title"><?php echo $patient['name'] . ' ' . $patient['surname']; ?></h5>
                 <h6 class="card-subtitle text-muted"><?php echo $doctor['name'] . ' ' . $doctor['surname']; ?></h6>
-                <p class="card-text"><?php echo $room['name'] ?></p>
+                <p class="card-text text-muted"><?php echo $room['name'] ?></p>
                 <p class="card-text"><?php echo $row['date']; ?></p>
                 <p class="card-text"><?php echo $row['time']; ?></p>
                 <button class='btn btn-primary' data-entry-id='<?php echo $row['id']; ?>' data-bs-toggle='modal' data-bs-target='#viewEntry<?php echo $row['id']; ?>'>View</button>
@@ -127,7 +128,7 @@ function generateTimeOptions($selectedTime)
   </div>
 
   <div class="tab-pane fade" id="weekly" role="tabpanel" aria-labelledby="weekly-tab" tabindex="0">
-    <div class="row justify-content-center mt-5 mb-5">
+    <div class="row justify-content-center text-center mt-5 mb-5">
       <div class="col-4">
         <div class="input-group mb-3">
           <input type="date" class="form-control" id="startDateInput" placeholder="Start Date" aria-label="Start Date" aria-describedby="basic-addon2">
@@ -135,6 +136,8 @@ function generateTimeOptions($selectedTime)
           <input type="date" class="form-control" id="endDateInput" placeholder="End Date" aria-label="End Date" aria-describedby="basic-addon2">
           <span class="input-group-text" id="basic-addon2">Search</span>
         </div>
+
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addAppointmentModal"><i class="fa-solid fa-plus"></i>Add Appointment</button>
       </div>
     </div>
 
