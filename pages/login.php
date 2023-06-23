@@ -48,27 +48,22 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
         $_SESSION['password'] = $row['password'];
         $_SESSION['rank'] = $row['rank'];
 
-        // Redirect to the home page or any other authenticated content
+        // Redirect to the home page
         header("location: ../index.php");
         exit();
       } else {
-        // Login failed, display an error message
         $error = "Invalid username or password";
       }
     } else {
-      // Login failed, display an error message
       $error = "Invalid username or password";
     }
   }
 } else {
-  // Username or password not provided, display an error message
   $error = "Please provide both username and password";
 }
 
 $conn->close();
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">

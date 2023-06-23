@@ -49,9 +49,8 @@ if (
     if (move_uploaded_file($uploadedFile, $targetPath)) {
       $profilePicture = $targetPath;
     } else {
-      // Handle the case when the file couldn't be uploaded
-      // For example, you can assign a default image to the employee
-      $profilePicture = $uploadDir . 'placeholder.png'; // Update with the appropriate default image name
+      // Update with the appropriate placeholder image
+      $profilePicture = $uploadDir . 'placeholder.png';
     }
   } else {
     // No new image uploaded, retrieve the existing image path from the database

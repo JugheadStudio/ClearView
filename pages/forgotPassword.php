@@ -2,10 +2,9 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-// Include the database connection and any required functions
 include '../db.php';
 
-// Include the config file
+// Include the config file where sensitive data is stored like passwords and API keys
 require_once('../config/config.php');
 
 // Check if the form is submitted
@@ -35,14 +34,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $emailSent = sendPasswordResetEmail($row['email'], $resetToken);
 
     if ($emailSent) {
-      // Success: Display a success message
       $successMessage = "Password reset email has been sent.";
     } else {
-      // Error: Display an error message if the token storing or email sending failed
       $errorMessage = "Failed to send the password reset email. Please try again later.";
     }
   } else {
-    // User does not exist, display an error message
     $errorMessage = "User does not exist.";
   }
 }
@@ -64,7 +60,6 @@ function storeResetToken($userID, $resetToken)
   $stmt = $conn->prepare($sql);
 
   if (!$stmt) {
-    // Error in preparing the statement, handle it accordingly
     die("Error: " . $conn->error);
   }
 
@@ -218,7 +213,6 @@ function sendPasswordResetEmail($email, $resetToken)
             </svg>
           </div>
 
-          <!-- Display the error or success message -->
           <?php if (!empty($successMessage)) : ?>
             <p class="success-message text-center"><?php echo $successMessage; ?></p>
 
@@ -239,7 +233,6 @@ function sendPasswordResetEmail($email, $resetToken)
               </div>
             </form>
           <?php endif; ?>
-
 
         </div>
       </div>

@@ -50,9 +50,8 @@ if (isset($_FILES['profilePicture']) && $_FILES['profilePicture']['size'] > 0) {
 
     $profilePicture = $targetPath;
   } else {
-    // Handle the case when the file couldn't be uploaded
-    // For example, you can assign a default image to the receptionist
-    $profilePicture = $uploadDir . 'placeholder.png'; // Update with the appropriate default image name
+    // Update with the appropriate placeholer image
+    $profilePicture = $uploadDir . 'placeholder.png';
   }
 } else {
   // No new image uploaded, retrieve the existing image path from the database

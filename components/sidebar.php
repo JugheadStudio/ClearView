@@ -1,6 +1,6 @@
 <?php
 
-$loggedInUser = null; // Initialize the variable
+$loggedInUser = null;
 
 // Check if the user is logged in and the session variables exist
 if (isset($_SESSION['username']) && isset($_SESSION['profilePicture'])) {
@@ -57,7 +57,6 @@ if (isset($_SESSION['username']) && isset($_SESSION['profilePicture'])) {
       </li>
     </ul>
 
-
     <div class="row">
       <div class="col text-center">
 
@@ -73,7 +72,6 @@ if (isset($_SESSION['username']) && isset($_SESSION['profilePicture'])) {
             </div>
           </div>
         </div>
-
 
         <p class="poweredBy">Powered by<br><strong>Jughead Studio</strong></p>
         <p class="social-links mb-2">

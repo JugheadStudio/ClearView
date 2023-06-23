@@ -2,7 +2,6 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-// Include the database connection and any required functions
 include '../db.php';
 
 // Retrieve the token from the URL parameter
@@ -33,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $row = $result->fetch_assoc();
       $userId = $row['userID'];
 
-      // Verify the token (implement your own logic)
+      // Verify the token
       if ($row['resetToken'] === $resetToken) {
         // Update the user's password in the database
         $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);

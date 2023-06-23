@@ -67,15 +67,11 @@ if (isset($_FILES['profilePicture']) && $_FILES['profilePicture']['error'] === U
 
   // Move the uploaded file to the desired location
   if (move_uploaded_file($tempFile, $targetFile)) {
-    // File upload success
     echo "File uploaded successfully.";
-    // Perform further processing or database storage here
   } else {
-    // File upload failed
     echo "File upload failed.";
   }
 } else {
-  // No file uploaded or upload error occurred
   echo "No file uploaded or upload error occurred.";
 }
 

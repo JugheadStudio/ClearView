@@ -208,6 +208,7 @@ while ($row = $results->fetch_assoc()) {
         <h5 class='modal-title' id='addPatientModalLabel'>Add Patient</h5>
         <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
       </div>
+
       <div class='modal-body'>
         <form id='addPatientForm' action='createPatients.php' method='POST' enctype="multipart/form-data">
           <div class='row mb-3'>
@@ -220,7 +221,6 @@ while ($row = $results->fetch_assoc()) {
                 </label>
               </div>
             </div>
-
 
             <div class='col'>
               <label for='name' class='form-label'>Name</label>
@@ -246,6 +246,7 @@ while ($row = $results->fetch_assoc()) {
               </select>
             </div>
           </div>
+
           <div class='row mb-3'>
             <div class='col-md-6'>
               <label for='phoneNumber' class='form-label'>Phone Number</label>
@@ -256,6 +257,7 @@ while ($row = $results->fetch_assoc()) {
               <input type='email' class='form-control' id='email' name='email' required>
             </div>
           </div>
+
           <div class='row mb-3'>
             <div class='col-md-6'>
               <label for='address' class='form-label'>Address</label>
@@ -266,6 +268,7 @@ while ($row = $results->fetch_assoc()) {
               <input type='text' class='form-control' id='medicalAid' name='medicalAid' required>
             </div>
           </div>
+
           <div class='row mb-3'>
             <div class='col-md-6'>
               <label for='medicalAidNumber' class='form-label'>Medical Aid Number</label>
@@ -282,6 +285,7 @@ while ($row = $results->fetch_assoc()) {
               </select>
             </div>
           </div>
+
           <div class='row mb-3'>
             <div class='col-md-6'>
               <label for='allergy' class='form-label'>Allergy</label>
@@ -292,6 +296,7 @@ while ($row = $results->fetch_assoc()) {
               <input type='text' class='form-control' id='emergencyContactName' name='emergencyContactName' required>
             </div>
           </div>
+          
           <div class='row mb-3'>
             <div class='col-md-6'>
               <label for='emergencyContactNumber' class='form-label'>Emergency Contact Number</label>

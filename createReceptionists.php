@@ -28,15 +28,12 @@ if (isset($_FILES['profilePicture']) && $_FILES['profilePicture']['error'] === U
 
     // Handle file upload
     if (move_uploaded_file($_FILES['profilePicture']['tmp_name'], $targetFile)) {
-        // File upload success
         echo "File uploaded successfully.";
     } else {
-        // File upload failed
         echo "File upload failed.";
     }
 } else {
-    // No profile picture selected, use placeholder image
-    $targetFile = 'uploads/placeholder.png'; // Update with the path to your placeholder image
+    $targetFile = 'uploads/placeholder.png';
 }
 
 $stmt = $conn->prepare("INSERT INTO `receptionist` (`profilePicture`, `username`, `password`, `name`, `surname`, `dateOfBirth`, `gender`, `phoneNumber`, `email`, `rank`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");

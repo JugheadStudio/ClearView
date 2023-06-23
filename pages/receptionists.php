@@ -187,6 +187,7 @@ while ($row = $results->fetch_assoc()) {
         <h5 class='modal-title' id='addReceptionistModalLabel'>Add Receptionist</h5>
         <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
       </div>
+      
       <div class='modal-body'>
         <form id='addReceptionistForm' action='createReceptionists.php' method='POST' enctype="multipart/form-data">
 

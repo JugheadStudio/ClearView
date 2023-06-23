@@ -85,10 +85,9 @@ function generateTimeOptions($selectedTime)
 
     <div id="daily-appointments" class="row">
       <?php
-      // Include the database connection file
       include '../db.php';
 
-      // Select all records from the appointment table
+      // Select all records from the appointment table and order them by date
       $sql = "SELECT * FROM appointment ORDER BY date";
       $results = $conn->query($sql);
 
@@ -143,7 +142,6 @@ function generateTimeOptions($selectedTime)
 
     <div id="weekly-appointments" class="row">
       <?php
-      // Include the database connection file
       include '../db.php';
 
       // Check if start and end dates are provided
@@ -225,7 +223,7 @@ while ($row = $results->fetch_assoc()) {
                   $sql = "SELECT * FROM patients ORDER BY name ASC";
                   $patientResults = $conn->query($sql);
 
-                  // Check if there are any rows returned from the query
+                  // Check if there are any entries returned from the query
                   if ($patientResults && $patientResults->num_rows > 0) {
                     while ($patient = $patientResults->fetch_assoc()) {
                       // Create an option for each patient
@@ -245,7 +243,7 @@ while ($row = $results->fetch_assoc()) {
                   $sql = "SELECT * FROM doctor ORDER BY name ASC";
                   $doctorResults = $conn->query($sql);
 
-                  // Check if there are any rows returned from the query
+                  // Check if there are any entries returned from the query
                   if ($doctorResults && $doctorResults->num_rows > 0) {
                     while ($doctor = $doctorResults->fetch_assoc()) {
                       // Create an option for each doctor
@@ -265,7 +263,7 @@ while ($row = $results->fetch_assoc()) {
                   $sql = "SELECT * FROM room ORDER BY name ASC";
                   $roomResults = $conn->query($sql);
 
-                  // Check if there are any rows returned from the query
+                  // Check if there are any entries returned from the query
                   if ($roomResults && $roomResults->num_rows > 0) {
                     while ($room = $roomResults->fetch_assoc()) {
                       // Create an option for each room
@@ -390,7 +388,7 @@ while ($row = $results->fetch_assoc()) {
               <select class="form-select" id="time" name="time" required>
                 <option value="" selected disabled>Select a time</option>
                 <?php
-                // Generate time options from 00:30 to 23:30
+                // Generate time options from 00:00 to 23:30
                 $time = strtotime('00:00');
                 while ($time <= strtotime('23:30')) {
                   $formattedTime = date('H:i A', $time);

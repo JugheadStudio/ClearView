@@ -34,7 +34,7 @@ $(document).ready(function() {
 		let emergencyContactName = $('#emergencyContactName' + entryId).val();
 		let emergencyContactNumber = $('#emergencyContactNumber' + entryId).val();
 
-		// Determine the update PHP file based on the active page
+		// Determine the content file based on the active page
 		let updateUrl = '';
 		if (page === 'patients') {
 			updateUrl = 'updatePatients.php';
@@ -66,8 +66,7 @@ $(document).ready(function() {
 				emergencyContactNumber: emergencyContactNumber
 			},
 			error: function(xhr, status, error) {
-				console.error(error); // Log the error to the console
-				// Handle the error appropriately (e.g., show an error message to the user)
+				console.error(error);
 			}	
 		});
 

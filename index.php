@@ -41,6 +41,7 @@ include 'db.php';
         <?php include 'components/sidebar.php'; ?>
       </div>
 
+      <!-- Content dynamically updates when the user clicks on a link in the sidebar -->
       <div class="col-10 p-0" id="content">
         <div>
           
