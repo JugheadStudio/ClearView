@@ -73,7 +73,7 @@ function generateTimeOptions($selectedTime)
 
   <div class="tab-pane fade show active" id="daily" role="tabpanel" aria-labelledby="daily-tab" tabindex="0">
     <div class="row justify-content-center text-center mt-5 mb-5">
-      <div class="col-4">
+      <div class="col-2">
         <div class="input-group mb-3">
           <input type="date" class="form-control" id="dateInput" placeholder="Date" aria-label="Date" aria-describedby="basic-addon2">
           <span class="input-group-text" id="basic-addon2">Search</span>
@@ -129,7 +129,7 @@ function generateTimeOptions($selectedTime)
 
   <div class="tab-pane fade" id="weekly" role="tabpanel" aria-labelledby="weekly-tab" tabindex="0">
     <div class="row justify-content-center text-center mt-5 mb-5">
-      <div class="col-4">
+      <div class="col-3">
         <div class="input-group mb-3">
           <input type="date" class="form-control" id="startDateInput" placeholder="Start Date" aria-label="Start Date" aria-describedby="basic-addon2">
           <span class="input-group-text">to</span>
