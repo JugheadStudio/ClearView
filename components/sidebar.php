@@ -46,13 +46,13 @@ if (isset($_SESSION['username']) && isset($_SESSION['profilePicture'])) {
         </li>
       <?php endif; ?>
       <li class="nav-item">
-        <a id="doctorsLink" class="nav-link" onclick="loadContent('doctors')">
-          <i class="fa-solid fa-stethoscope"></i> Doctors
+        <a id="patientsLink" class="nav-link" onclick="loadContent('patients')">
+          <i class="fas fa-users"></i> Patients
         </a>
       </li>
       <li class="nav-item">
-        <a id="patientsLink" class="nav-link" onclick="loadContent('patients')">
-          <i class="fas fa-users"></i> Patients
+        <a id="doctorsLink" class="nav-link" onclick="loadContent('doctors')">
+          <i class="fa-solid fa-stethoscope"></i> Doctors
         </a>
       </li>
     </ul>
