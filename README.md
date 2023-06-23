@@ -38,7 +38,7 @@ The idea was to create a dashboard that can be used at doctor's offices that all
 
 ## Wireframes
 
-![Wireframe](https://github.com/JugheadStudio/Github-assets/blob/main/Datamon/wireframes.png)
+![ClearView Wireframe](https://github.com/JugheadStudio/Github-assets/blob/main/ClearView/Wireframes.png?raw=true)
 
 ## Development Process
 
@@ -58,7 +58,9 @@ The most dificult functionality to impliment was allowing the user to reset thei
 
 ## Mockups
 
-![Javascript](https://github.com/JugheadStudio/Github-assets/blob/main/Datamon/devices.png)
+![ClearView Mockup 1](https://github.com/JugheadStudio/Github-assets/blob/main/ClearView/1.jpg?raw=true)
+![ClearView Mockup 1](https://github.com/JugheadStudio/Github-assets/blob/main/ClearView/2.jpg?raw=true)
+![ClearView Mockup 1](https://github.com/JugheadStudio/Github-assets/blob/main/ClearView/3.jpg?raw=true)
 
 ## Demonstration
 
