@@ -1,4 +1,4 @@
-![Datamon Header Image](https://github.com/JugheadStudio/Github-assets/blob/main/Datamon/Github-header-blue.png)
+![ClearView Header Image](https://github.com/JugheadStudio/Github-assets/blob/main/ClearView/Github-header.png?raw=true)
 
 - - - -
 
@@ -14,7 +14,7 @@ ClearView is a docotor's office dashboard built using PHP and mySQL that allows 
 [![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)](https://www.w3.org/Style/CSS/Overview.en.html)
 [![Bootstrap](https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white)](https://getbootstrap.com/)
 
-![Datamon Screenshot](https://github.com/JugheadStudio/Github-assets/blob/main/Datamon/datamon-screenshot.png)
+![ClearView Screenshot](https://github.com/JugheadStudio/Github-assets/blob/main/ClearView/Screenshot%202023-06-23%20at%2004.25.47.png?raw=true)
 
 ## How To Install
 
