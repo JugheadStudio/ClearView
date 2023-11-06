@@ -63,6 +63,7 @@ The most dificult functionality to impliment was allowing the user to reset thei
 ![ClearView Mockup 1](https://github.com/JugheadStudio/Github-assets/blob/main/ClearView/3.jpg?raw=true)
 
 ## Demonstration
+[Link To Demonstration Video](https://drive.google.com/file/d/1yF9_QofrVma-KGCR2qbKavmxX1QgBBU8/view?usp=sharing)
 
 ### License
 [MIT](LICENSE) © [Jughead Studio](https://github.com/JugheadStudio)
